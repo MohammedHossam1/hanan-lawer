@@ -13,7 +13,7 @@ const App = () => {
   const { t, i18n } = useTranslation();
 
   useEffect (() => {
-    document.documentElement.dir = (i18n.language === 'ar' || i18n.language === 'he') ? 'rtl' : 'ltr';
+    document.documentElement.dir =  'rtl' ;
   }, [i18n.language]);
   return (
     <QueryClientProvider client={queryClient}>
