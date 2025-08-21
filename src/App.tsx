@@ -7,13 +7,16 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
+import Services from "./components/Services";
+import Layout from "./Layout";
+import About from "./components/About";
 
 const queryClient = new QueryClient();
 const App = () => {
   const { t, i18n } = useTranslation();
 
-  useEffect (() => {
-    document.documentElement.dir =  'rtl' ;
+  useEffect(() => {
+    document.documentElement.dir = 'rtl';
   }, [i18n.language]);
   return (
     <QueryClientProvider client={queryClient}>
@@ -21,11 +24,16 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Index />} />          {/* / */}
+                <Route path="services" element={<Services />} />  {/* /services */}
+                <Route path="about" element={<About />} />  {/* /about */}
+                <Route path="contact" element={<Index />} />{/* /contact */}
+                <Route path="blogs" element={<Index />} />   {/* /blogs */}
+                <Route path="*" element={<NotFound />} />    {/* catch-all */}
+              </Route>
+            </Routes>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>

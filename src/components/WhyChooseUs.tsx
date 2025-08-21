@@ -1,46 +1,46 @@
-import { Award, Users, TrendingUp, Shield } from 'lucide-react';
-import SectionHeader from './SectionHeader';
+import { Award, Users, TrendingUp, Shield } from "lucide-react";
+import SectionHeader from "./SectionHeader";
+import { useTranslation } from "react-i18next";
+
+interface Feature {
+  icon: JSX.Element;
+  title: string;
+  description: string;
+}
 
 const WhyChooseUs = () => {
-  const features = [
+  const { t } = useTranslation();
+
+  const features: Feature[] = [
     {
       icon: <Award className="w-12 h-12" />,
-      title: 'خبرة أكثر من 25 عاماً',
-      description: 'فريق من المحامين ذوي الخبرة الطويلة في مختلف المجالات القانونية'
+      title: t("whyChooseUs.items.0.title"),
+      description: t("whyChooseUs.items.0.description"),
     },
     {
       icon: <Users className="w-12 h-12" />,
-      title: 'فريق متخصص',
-      description: 'محامون معتمدون ومتخصصون في القانون السعودي والدولي'
+      title: t("whyChooseUs.items.1.title"),
+      description: t("whyChooseUs.items.1.description"),
     },
     {
       icon: <TrendingUp className="w-12 h-12" />,
-      title: 'نتائج مثبتة',
-      description: 'سجل حافل من النجاحات والانتصارات القانونية لصالح عملائنا'
+      title: t("whyChooseUs.items.2.title"),
+      description: t("whyChooseUs.items.2.description"),
     },
     {
       icon: <Shield className="w-12 h-12" />,
-      title: 'سرية تامة',
-      description: 'نضمن الحفاظ على سرية المعلومات والمستندات بأعلى معايير الأمان'
-    }
+      title: t("whyChooseUs.items.3.title"),
+      description: t("whyChooseUs.items.3.description"),
+    },
   ];
 
   return (
-    <section className=" bg-card">
+    <section className="pt-10 lg:pt-20">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <p className="text-accent font-semibold text-lg mb-4"></p>
-          <h2 className=" text-4xl lg:text-5xl font-bold text-card-foreground mb-6">
-
-          </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed">
-
-          </p>
-        </div>
         <SectionHeader
-          title={" نحن الخيار الأمثل لخدماتكم القانونية"}
-          subTitle={"لماذا تختارنا"}
-          desc={" نقدم خدمات قانونية متميزة تجمع بين الخبرة العريقة والحلول المبتكرة لضمان حماية حقوقكم ومصالحكم"}
+          title={t("whyChooseUs.sectionHeader.title")}
+          subTitle={t("whyChooseUs.sectionHeader.subtitle")}
+          desc={t("whyChooseUs.sectionHeader.description")}
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -52,7 +52,7 @@ const WhyChooseUs = () => {
               <div className="text-accent mb-6 flex justify-center group-hover:scale-110 transition-transform">
                 {feature.icon}
               </div>
-              <h3 className=" text-xl font-bold text-card-foreground mb-4">
+              <h3 className="text-xl font-bold text-card-foreground mb-4">
                 {feature.title}
               </h3>
               <p className="text-muted-foreground leading-relaxed">

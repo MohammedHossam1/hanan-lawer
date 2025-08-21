@@ -6,59 +6,31 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
 import SectionHeader from "./SectionHeader";
+import { useTranslation } from "react-i18next";
+export interface Testimonial {
+  name: string;
+  role: string;
+  content: string;
+  rating: number;
+  avatar: string;
+}
 
 const Testimonials = () => {
+  const { t } = useTranslation();
+
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
 
-  const testimonials = [
-    {
-      name: "أحمد محمد",
-      role: "رجل أعمال",
-      content:
-        "حصلت على استشارة قانونية ممتازة ساعدتني في حل قضية معقدة. فريق محترف ومتفهم.",
-      rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face",
-    },
-    {
-      name: "فاطمة العلي",
-      role: "مديرة شركة",
-      content:
-        "خدمة عملاء رائعة ومتابعة مستمرة. نجحوا في تمثيلي بأفضل شكل ممكن.",
-      rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face",
-    },
-    {
-      name: "خالد السعد",
-      role: "مستثمر",
-      content:
-        "مكتب محامي موثوق ومحترف. قدموا لي النصح القانوني الصحيح في الوقت المناسب.",
-      rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face",
-    },
-    {
-      name: "مها عبد الله",
-      role: "صاحبة أعمال",
-      content:
-        "تجربة رائعة مع فريق قانوني محترف يهتم بأدق التفاصيل ويوفر حلول عملية.",
-      rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?w=80&h=80&fit=crop&crop=face",
-    },
-  ];
+  const testimonials = t("testimonials.items", { returnObjects: true }) as Testimonial[];
+
   React.useEffect(() => {
     if (!api) return;
 
-    setCount(api.scrollSnapList().length); // ده بيرجع عدد ال snaps الحقيقي
+    setCount(api.scrollSnapList().length);
     setCurrent(api.selectedScrollSnap());
 
     api.on("select", () => {
@@ -66,17 +38,15 @@ const Testimonials = () => {
     });
   }, [api]);
 
-
   return (
-    <section className=" bg-background">
+    <section className="py-10 lg:py-20 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
-       <SectionHeader 
-        title=" ماذا يقول عملاؤنا عنا"
-        subTitle="تقييمات العملاء"
-        desc="نفخر بثقة عملائنا وآرائهم الإيجابية حول الخدمات القانونية التي نقدمها "
-       />
+        <SectionHeader
+          title={t("testimonials.sectionHeader.title")}
+          subTitle={t("testimonials.sectionHeader.subTitle")}
+          desc={t("testimonials.sectionHeader.desc")}
+        />
 
-        {/* Carousel */}
         <Carousel
           setApi={setApi}
           opts={{ align: "start", loop: false, direction: "rtl" }}
@@ -85,7 +55,7 @@ const Testimonials = () => {
             {testimonials.map((testimonial, index) => (
               <CarouselItem
                 key={index}
-                className="md:basis-1/2 lg:basis-1/3 "
+                className="md:basis-1/2 lg:basis-1/3"
               >
                 <div className="bg-card rounded-xl p-4 lg:p-8 transition-all duration-300 border border-border h-full flex flex-col justify-between">
                   <div>
@@ -128,11 +98,8 @@ const Testimonials = () => {
             ))}
           </CarouselContent>
 
-          {/* Controls */}
-      
-
-          {/* Dots في الموبايل */}
-          <div className="flex  justify-center gap-2 mt-6">
+          {/* Dots for mobile */}
+          <div className="flex justify-center gap-2 mt-6">
             {Array.from({ length: count }).map((_, i) => (
               <button
                 key={i}
@@ -141,7 +108,6 @@ const Testimonials = () => {
                   }`}
               />
             ))}
-
           </div>
         </Carousel>
       </div>

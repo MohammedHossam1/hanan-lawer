@@ -1,42 +1,19 @@
-import { Scale, Shield, Home, Users, Briefcase, Building } from 'lucide-react';
+import { Scale, Shield, Home, Users, Briefcase } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
 import SectionHeader from './SectionHeader';
 
+interface ServiceItem {
+  title: string;
+  description: string;
+  features: string[];
+}
+
 const Services = () => {
-  const services = [
-    {
-      icon: <Scale className="w-8 h-8" />,
-      title: 'قضايا الإعسار والإفلاس',
-      description: 'مرافقة قانونية كاملة حتى الحصول على الإعفاء النهائي، مع حلول مالية مبتكرة تناسب كل حالة',
-      features: ['إعداد ملفات الإعسار', 'تمثيل أمام المحكمة', 'خطة سداد مرنة']
-    },
-    {
-      icon: <Shield className="w-8 h-8" />,
-      title: 'تسوية الديون',
-      description: 'تفاوض مع الدائنين، تخفيض الفوائد، وإيقاف الإجراءات خلال 24 ساعة',
-      features: ['تفاوض مع البنوك', 'تخفيض الفوائد', 'جدولة الديون']
-    },
-    {
-      icon: <Home className="w-8 h-8" />,
-      title: 'إلغاء الحجوزات',
-      description: 'إلغاء الحجوزات على الحسابات البنكية، الرواتب، والمركبات',
-      features: ['رفع حجز الحسابات', 'إلغاء حجز الرواتب', 'تحرير المركبات']
-    },
-    {
-      icon: <Users className="w-8 h-8" />,
-      title: 'منع السفر',
-      description: 'رفع أوامر منع السفر والقيود المرتبطة',
-      features: ['تقديم طلب رفع المنع', 'التفاوض مع الجهات المختصة', 'إلغاء القيود القانونية']
-    },
-    {
-      icon: <Briefcase className="w-8 h-8" />,
-      title: 'استشارات قانونية متخصصة',
-      description: 'قضايا الأحوال الشخصية، النفقة، الديون، ومرافقة مستمرة من البداية حتى النهاية',
-      features: ['استشارة أولية مجانية', 'متابعة قانونية دورية', 'خطة قانونية مخصصة']
-    }
-  ];
-  const { t } = useTranslation()
+  const { t } = useTranslation();
+
+  const services = t("services.items", { returnObjects: true }) as ServiceItem[];
+
   const sectionHeader = {
     subtitle: t('services.sectionHeader.subtitle'),
     title: t('services.sectionHeader.title'),
@@ -50,11 +27,13 @@ const Services = () => {
     btnCall: t('services.cta.btnCall')
   };
 
+  const icons = [<Scale key="scale" />, <Shield key="shield" />, <Home key="home" />, <Users key="users" />, <Briefcase key="briefcase" />];
+
   return (
-    <section className="bg-background">
+    <section className="pt-10 lg:pt-20 bg-background" id='services'>
       <div className="container mx-auto px-4 lg:px-8">
+
         {/* Section Header */}
-     
         <SectionHeader
           title={sectionHeader.title}
           subTitle={sectionHeader.subtitle}
@@ -66,10 +45,10 @@ const Services = () => {
           {services.map((service, index) => (
             <div
               key={index}
-              className="group bg-card rounded-xl p-8 shadow-card hover:shadow-elegant transition-all duration-300 hover:-translate-y-2 border border-border"
+              className="group bg-card rounded-xl p-4 lg:p-8 shadow-card hover:shadow-elegant transition-all duration-300 hover:-translate-y-2 border border-border"
             >
-              <div className="text-accent mb-6 group-hover:scale-110 transition-transform">
-                {service.icon}
+              <div className="text-accent mb-6 ">
+                {icons[index]}
               </div>
 
               <h3 className=" text-2xl font-bold text-card-foreground mb-4">
@@ -90,14 +69,14 @@ const Services = () => {
               </ul>
 
               <Button variant="ghost" className="text-accent hover:text-accent-foreground hover:bg-accent group-hover:bg-accent group-hover:text-accent-foreground">
-                Learn More →
+                {t("services.learnMore")}
               </Button>
             </div>
           ))}
         </div>
 
         {/* CTA Section */}
-        <div className="text-center bg-gradient-hero rounded-2xl p-5 lg:p-12">
+        <div className="text-center bg-gradient-hero rounded-2xl p-5 lg:p-12 mb-10">
           <h3 className="text-2xl lg:text-3xl font-bold text-primary-foreground mb-4">
             {cta.title}
           </h3>
