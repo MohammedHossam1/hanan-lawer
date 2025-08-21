@@ -1,6 +1,8 @@
 import { Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import logo from "../assets/logo.jpg";
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -50,8 +52,10 @@ const Footer = () => {
           {/* Company Info */}
           <div>
             <div className="mb-6">
-              <h2 className="font-bold text-xl">{t("footer.company.title")}</h2>
-              <p className="text-xs text-accent uppercase tracking-wider">{t("footer.company.subtitle")}</p>
+              {/* Logo */}
+              <Link to="/" className="flex items-center gap-x-3 rounded-full" >
+                <img src={logo} alt="logo" className="size-20 rounded-full" />
+              </Link>
             </div>
             <p className="text-primary-foreground/80 mb-6 leading-relaxed">{t("footer.company.description")}</p>
             <div className="flex gap-3">

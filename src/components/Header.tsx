@@ -1,9 +1,9 @@
-"use client";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Mail, Menu, Phone, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import LanguageSwitcher from "./shared/LanguageSwitcher";
+import logo from "../assets/logo.jpg";
 import { useTranslation } from "react-i18next";
 
 const Header = () => {
@@ -26,13 +26,14 @@ const Header = () => {
           <div className="flex items-center justify-between h-16">
 
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-x-3">
-              <div className="text-primary-foreground">
+            <Link to="/" className="flex items-center gap-x-3 rounded-full" >
+              {/* <div className="text-primary-foreground">
                 <div className="font-bold text-xl">{t("header.logoTitle")}</div>
                 <div className="text-xs text-accent uppercase tracking-wider">
                   {t("header.logoSubtitle")}
                 </div>
-              </div>
+              </div> */}
+              <img src={logo} alt="logo" className="w-10 h-10 rounded-full" />
             </Link>
 
             {/* Desktop Navigation */}
