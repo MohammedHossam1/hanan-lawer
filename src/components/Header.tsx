@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Mail, Menu, Phone, X } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import LanguageSwitcher from "./shared/LanguageSwitcher";
 import logo from "../assets/logo.jpg";
 import { useTranslation } from "react-i18next";
@@ -14,9 +14,9 @@ const Header = () => {
     { name: t("header.nav.home"), href: "/", hasDropdown: false },
     { name: t("header.nav.about"), href: "/about", hasDropdown: false },
     { name: t("header.nav.services"), href: "/services", hasDropdown: false },
-    { name: t("header.nav.whyUs"), href: "/#why-us", hasDropdown: false },
-    { name: t("header.nav.testimonials"), href: "/#testimonials", hasDropdown: false },
-    { name: t("header.nav.contact"), href: "/#contact", hasDropdown: false }
+    { name: t("header.nav.whyUs"), href: "/صwhy-us", hasDropdown: false },
+    { name: t("header.nav.testimonials"), href: "/testimonials", hasDropdown: false },
+    { name: t("header.nav.contact"), href: "/contact", hasDropdown: false }
   ];
 
   return (
@@ -27,29 +27,31 @@ const Header = () => {
 
             {/* Logo */}
             <Link to="/" className="flex items-center gap-x-3 rounded-full" >
-              {/* <div className="text-primary-foreground">
-                <div className="font-bold text-xl">{t("header.logoTitle")}</div>
-                <div className="text-xs text-accent uppercase tracking-wider">
-                  {t("header.logoSubtitle")}
-                </div>
-              </div> */}
+
               <img src={logo} alt="logo" className="w-10 h-10 rounded-full" />
             </Link>
 
             {/* Desktop Navigation */}
+            {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-x-8">
               {navigation.map((item) => (
                 <div key={item.name} className="relative group">
-                  <Link
+                  <NavLink
                     to={item.href}
-                    className="flex items-center gap-x-1 text-primary-foreground hover:text-accent transition-smooth font-medium"
+                    className={({ isActive }) =>
+                      `flex items-center gap-x-1 font-medium transition-smooth ${isActive
+                        ? "text-accent border-b-2 border-accent"
+                        : "text-primary-foreground hover:text-accent"
+                      }`
+                    }
                   >
                     <span>{item.name}</span>
                     {item.hasDropdown && <ChevronDown size={16} />}
-                  </Link>
+                  </NavLink>
                 </div>
               ))}
             </nav>
+
 
             {/* CTA & Mobile Menu */}
             <div className="flex items-center space-x-4">
@@ -89,14 +91,14 @@ const Header = () => {
               >
                 <div className="py-4 space-y-2 flex flex-col items-center ">
                   {navigation.map((item) => (
-                    <a
+                    <NavLink
                       key={item.name}
-                      href={item.href}
+                      to={item.href}
                       className="block px-4 py-2 text-card-foreground hover:bg-accent/10 hover:text-accent transition-smooth"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.name}
-                    </a>
+                    </NavLink>
                   ))}
                   {/* contact */}
                   <div className="px-4 pt-4 border-t border-border mt-2">

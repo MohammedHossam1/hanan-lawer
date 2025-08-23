@@ -10,6 +10,8 @@ import { useEffect } from "react";
 import Services from "./components/Services";
 import Layout from "./Layout";
 import About from "./components/About";
+import ScrollToTopBtn from "./components/shared/ScrollToTopBtn";
+import ScrollToTopOnRouteChange from "./components/shared/ScrollToTopOnRouteChange";
 
 const queryClient = new QueryClient();
 const App = () => {
@@ -21,19 +23,22 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        {/* <ScrollToTopOnRouteChange /> */}
+        <ScrollToTopBtn />
+
         <Toaster />
         <Sonner />
         <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Layout />}>
-                <Route index element={<Index />} />          {/* / */}
-                <Route path="services" element={<Services />} />  {/* /services */}
-                <Route path="about" element={<About />} />  {/* /about */}
-                <Route path="contact" element={<Index />} />{/* /contact */}
-                <Route path="blogs" element={<Index />} />   {/* /blogs */}
-                <Route path="*" element={<NotFound />} />    {/* catch-all */}
-              </Route>
-            </Routes>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Index />} />          {/* / */}
+              <Route path="services" element={<Services />} />  {/* /services */}
+              <Route path="about" element={<About />} />  {/* /about */}
+              <Route path="contact" element={<Index />} />{/* /contact */}
+              <Route path="blogs" element={<Index />} />   {/* /blogs */}
+              <Route path="*" element={<NotFound />} />    {/* catch-all */}
+            </Route>
+          </Routes>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
