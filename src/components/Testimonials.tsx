@@ -39,7 +39,7 @@ const Testimonials = () => {
   }, [api]);
 
   return (
-    <section className="py-10 lg:py-20 bg-background">
+    <section id="testimonials" className="py-10 lg:py-20 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
         <SectionHeader
           title={t("testimonials.sectionHeader.title")}
@@ -103,6 +103,7 @@ const Testimonials = () => {
             {Array.from({ length: count }).map((_, i) => (
               <button
                 key={i}
+                title="Select slide"
                 onClick={() => api?.scrollTo(i)}
                 className={`h-2 w-2 rounded-full transition-colors ${i === current ? "bg-accent" : "bg-muted"
                   }`}

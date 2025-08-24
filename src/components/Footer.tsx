@@ -53,11 +53,10 @@ const Footer = () => {
           <div>
             <div className="mb-6">
               {/* Logo */}
-              <Link to="/" className="flex items-center gap-x-3 rounded-full" >
-                <img src={logo} alt="logo" className="size-20 rounded-full" />
+              <Link to="/" className="" >
+                <img src={logo} alt="logo" className="w-3/4" />
               </Link>
             </div>
-            <p className="text-primary-foreground/80 mb-6 leading-relaxed">{t("footer.company.description")}</p>
             <div className="flex gap-3">
               {socials.map(({ icon: Icon, label, href }, i) => (
                 <Button key={i} variant="ghost" size="sm" asChild className="text-primary-foreground hover:text-accent hover:bg-primary-foreground/10">

@@ -35,7 +35,7 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <section className="pt-10 lg:pt-20">
+    <section id="why-us" className="pt-10 lg:pt-20">
       <div className="container mx-auto px-4 lg:px-8">
         <SectionHeader
           title={t("whyChooseUs.sectionHeader.title")}

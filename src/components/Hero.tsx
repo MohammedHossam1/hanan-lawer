@@ -1,15 +1,9 @@
 import heroImage from '@/assets/hero.png';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft, Star } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import ReservationCalendar from './shared/Reservation';
 
 const Hero = () => {
-  const testimonialAvatars = [
-    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face',
-    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face',
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face'
-  ];
+
   const { t } = useTranslation();
 
   return (
@@ -38,31 +32,7 @@ const Hero = () => {
             <div className="max-md:hidden flex flex-col sm:flex-row gap-4 relative z-10">
               <ReservationCalendar />
             </div>
-
-            {/* Testimonial Section */}
-            <div className="max-md:hidden flex items-start gap-x-4 pt-4 lg:pt-8 " >
-              <div className="flex -space-x-3 " dir='ltr'>
-                {testimonialAvatars.map((avatar, index) => (
-                  <img
-                    key={index}
-                    src={avatar}
-                    alt={`Client ${index + 1}`}
-                    className="w-12 h-12 rounded-full border-2 border-accent object-cover"
-                  />
-                ))}
-              </div>
-              <div className="space-y-1">
-                <div className="flex items-center space-x-1 max-lg:flex-col">
-                  <span className="text-primary-foreground font-semibold max-lg:text-xs">{t('hero.testimonial')}</span>
-                </div>
-                <div className="flex items-center space-x-1 ">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-accent text-accent" />
-                  ))}
-                </div>
-                <span className="text-primary-foreground/70 text-sm ml-2">4.5/5 (35+ Reviews)</span>
-              </div>
-            </div>
+       
           </div>
 
           {/* Right Content - Hero Image */}
@@ -91,30 +61,6 @@ const Hero = () => {
                 <ReservationCalendar />
               </div>
 
-              {/* Testimonial Section */}
-              <div className=" md:hidden flex items-center gap-x-4 pt-4 lg:pt-8 " >
-                <div className="flex -space-x-3 " dir='ltr'>
-                  {testimonialAvatars.map((avatar, index) => (
-                    <img
-                      key={index}
-                      src={avatar}
-                      alt={`Client ${index + 1}`}
-                      className="w-12 h-12 rounded-full border-2 border-accent object-cover"
-                    />
-                  ))}
-                </div>
-                <div className="space-y-1">
-                  <div className="flex items-center space-x-1 max-lg:flex-col">
-                    <span className="text-primary-foreground font-semibold max-lg:text-xs">{t('hero.testimonial')}</span>
-                  </div>
-                  <div className="flex items-center space-x-1 ">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-accent text-accent" />
-                    ))}
-                  </div>
-                  <span className="text-primary-foreground/70 text-sm ml-2">4.5/5 (35+ Reviews)</span>
-                </div>
-              </div>
               {/* Decorative Elements */}
               <div className="absolute -bottom-8 -left-8 w-32 h-32 border-2 border-accent/30 rounded-full"></div>
               <div className="absolute -top-8 -left-8 w-16 h-16 bg-accent/20 rounded-full blur-sm"></div>
