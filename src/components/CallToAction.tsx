@@ -1,14 +1,13 @@
 "use client";
 
 import ContactForm from "./shared/ContactForm";
-import ReservationCalendar from "./shared/Reservation";
 import { useTranslation } from "react-i18next";
 
 const CallToAction = () => {
   const { t } = useTranslation();
 
   return (
-    <section className="py-10 lg:py-20 bg-gradient-hero relative overflow-hidden">
+    <section id="contact" className="py-10 lg:py-20 bg-gradient-hero relative overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0 bg-gradient-subtle"></div>
       <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-accent/10 rounded-full blur-3xl"></div>
@@ -26,7 +25,6 @@ const CallToAction = () => {
 
           {/* Reservation & Contact Form */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <ReservationCalendar />
             <ContactForm />
           </div>
 

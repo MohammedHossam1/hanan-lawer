@@ -1,11 +1,13 @@
 import { Scale, Shield, Home, Users, Briefcase } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
-import SectionHeader from './SectionHeader';
+import SectionHeader from '../SectionHeader';
+import { Link } from 'react-router-dom';
 
 interface ServiceItem {
   title: string;
   description: string;
+  slug: string;
   features: string[];
 }
 
@@ -68,9 +70,12 @@ const Services = () => {
                 ))}
               </ul>
 
-              <Button variant="ghost" className="text-accent hover:text-accent-foreground hover:bg-accent group-hover:bg-accent group-hover:text-accent-foreground">
-                {t("services.learnMore")}
-              </Button>
+       
+              <Link to={`/services/${service.slug}`}>
+                <Button variant="ghost" className="text-accent hover:text-accent-foreground hover:bg-accent group-hover:bg-accent group-hover:text-accent-foreground">
+                  {t("services.learnMore")}
+                </Button>
+              </Link>
             </div>
           ))}
         </div>

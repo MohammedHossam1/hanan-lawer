@@ -7,11 +7,12 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
-import Services from "./components/Services";
+import Services from "./components/Services/Services";
 import Layout from "./Layout";
 import About from "./components/About";
 import ScrollToTopBtn from "./components/shared/ScrollToTopBtn";
 import ScrollToTopOnRouteChange from "./components/shared/ScrollToTopOnRouteChange";
+import ServiceDetails from "./components/Services/ServiceDetails";
 
 const queryClient = new QueryClient();
 const App = () => {
@@ -36,6 +37,8 @@ const App = () => {
               <Route path="about" element={<About />} />  {/* /about */}
               <Route path="contact" element={<Index />} />{/* /contact */}
               <Route path="blogs" element={<Index />} />   {/* /blogs */}
+              <Route path="/services/:slug" element={<ServiceDetails />} />
+
               <Route path="*" element={<NotFound />} />    {/* catch-all */}
             </Route>
           </Routes>
