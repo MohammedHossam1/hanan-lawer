@@ -34,7 +34,7 @@ const Footer = () => {
     { icon: Facebook, label: t("footer.socials.facebook"), href: "#" },
     { icon: Twitter, label: t("footer.socials.twitter"), href: "#" },
     { icon: Linkedin, label: t("footer.socials.linkedin"), href: "#" },
-    { icon: Instagram, label: t("footer.socials.instagram"), href: "#" }
+    { icon: Instagram, label: t("footer.socials.instagram"), href: "https://www.instagram.com/hananakellawoffice" }
   ];
 
   const contacts = [
@@ -59,10 +59,11 @@ const Footer = () => {
             </div>
             <p className="text-primary-foreground/80 mb-6 leading-relaxed">{t("footer.company.description")}</p>
 
+
             <div className="flex gap-3">
               {socials.map(({ icon: Icon, label, href }, i) => (
                 <Button key={i} variant="ghost" size="sm" asChild className="text-primary-foreground hover:text-white hover:bg-primary-foreground/10">
-                  <a href={href} aria-label={label}>
+                  <a href={href} aria-label={label} target="_blank">
                     <Icon size={20} />
                   </a>
                 </Button>
@@ -111,7 +112,7 @@ const Footer = () => {
         {/* Bottom Footer */}
         <div className="border-t border-primary-foreground/20 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-primary-foreground/60 text-sm">{t("footer.bottom.rights")}</div>
+            <div className="text-primary-foreground/60 text-sm">{t("footer.bottom.rights") + " © " + new Date().getFullYear()}</div>
             <div className="flex flex-wrap gap-6">
               {legalPages.map((page, index) => (
                 <a key={index} href={page.href} className="text-primary-foreground/60 hover:text-white text-sm transition-smooth">

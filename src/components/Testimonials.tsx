@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Star, Quote } from "lucide-react";
+import { Star, Quote, UserCircle } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -79,11 +79,9 @@ const Testimonials = () => {
                   </div>
 
                   <div className="flex items-center gap-x-4 mt-4">
-                    <img
-                      src={testimonial.avatar}
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full object-cover"
-                    />
+                    <div className=" p-1 rounded-full bg-muted flex items-center justify-center">
+                      <UserCircle className=" size-8 text-muted-foreground" />
+                    </div>
                     <div>
                       <h4 className="font-semibold text-card-foreground">
                         {testimonial.name}
