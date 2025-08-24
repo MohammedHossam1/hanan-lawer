@@ -60,14 +60,14 @@ const Testimonials = () => {
                 <div className="bg-card rounded-xl p-4 lg:p-8 transition-all duration-300 border border-border h-full flex flex-col justify-between">
                   <div>
                     <div className="flex items-center justify-between mb-6">
-                      <div className="text-accent">
+                      <div className="text-white">
                         <Quote size={24} />
                       </div>
                       <div className="flex">
                         {[...Array(testimonial.rating)].map((_, i) => (
                           <Star
                             key={i}
-                            className="w-5 h-5 fill-accent text-accent"
+                            className="w-5 h-5 fill-accent text-white"
                           />
                         ))}
                       </div>

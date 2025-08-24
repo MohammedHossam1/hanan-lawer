@@ -57,9 +57,11 @@ const Footer = () => {
                 <img src={logo} alt="logo" className="w-3/4" />
               </Link>
             </div>
+            <p className="text-primary-foreground/80 mb-6 leading-relaxed">{t("footer.company.description")}</p>
+
             <div className="flex gap-3">
               {socials.map(({ icon: Icon, label, href }, i) => (
-                <Button key={i} variant="ghost" size="sm" asChild className="text-primary-foreground hover:text-accent hover:bg-primary-foreground/10">
+                <Button key={i} variant="ghost" size="sm" asChild className="text-primary-foreground hover:text-white hover:bg-primary-foreground/10">
                   <a href={href} aria-label={label}>
                     <Icon size={20} />
                   </a>
@@ -74,7 +76,7 @@ const Footer = () => {
             <ul className="space-y-3">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <a href={link.href} className="text-primary-foreground/80 hover:text-accent transition-smooth">{link.name}</a>
+                  <a href={link.href} className="text-primary-foreground/80 hover:text-white transition-smooth">{link.name}</a>
                 </li>
               ))}
             </ul>
@@ -86,7 +88,7 @@ const Footer = () => {
             <ul className="space-y-3">
               {services.map((service, index) => (
                 <li key={index}>
-                  <a href={service.href} className="text-primary-foreground/80 hover:text-accent transition-smooth">{service.name}</a>
+                  <a href={service.href} className="text-primary-foreground/80 hover:text-white transition-smooth">{service.name}</a>
                 </li>
               ))}
             </ul>
@@ -98,7 +100,7 @@ const Footer = () => {
             <div className="space-y-4">
               {contacts.map(({ icon: Icon, text }, i) => (
                 <div key={i} className="flex items-start gap-x-3">
-                  <Icon className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
+                  <Icon className="w-5 h-5 text-white mt-1 flex-shrink-0" />
                   <p className="text-primary-foreground/80">{text}</p>
                 </div>
               ))}
@@ -112,7 +114,7 @@ const Footer = () => {
             <div className="text-primary-foreground/60 text-sm">{t("footer.bottom.rights")}</div>
             <div className="flex flex-wrap gap-6">
               {legalPages.map((page, index) => (
-                <a key={index} href={page.href} className="text-primary-foreground/60 hover:text-accent text-sm transition-smooth">
+                <a key={index} href={page.href} className="text-primary-foreground/60 hover:text-white text-sm transition-smooth">
                   {page.name}
                 </a>
               ))}

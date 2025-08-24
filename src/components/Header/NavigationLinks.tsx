@@ -1,10 +1,9 @@
+import { useEffect } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { ChevronDown } from "lucide-react";
 
-const NavigationLinks = ({ navigation, onClick }: { navigation: { name: string; href: string; hasDropdown: boolean }[], onClick?: () => void }) => {
+const NavigationLinks = ({ navigation, onClick }: { navigation: { name: string; href: string;}[], onClick?: () => void }) => {
     const location = useLocation();
     const navigate = useNavigate();
-
     const handleNavClick = (e, href) => {
         if (href.startsWith("/#")) {
             e.preventDefault();
@@ -20,6 +19,16 @@ const NavigationLinks = ({ navigation, onClick }: { navigation: { name: string; 
             if (onClick) onClick();
         }
     };
+    useEffect(() => {
+        if (location.state?.scrollTo) {
+            const sectionId = location.state.scrollTo;
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: "smooth" });
+            }
+        }
+    }, [location.state]);
+
 
     return (
         <>
@@ -30,13 +39,12 @@ const NavigationLinks = ({ navigation, onClick }: { navigation: { name: string; 
                         onClick={(e) => handleNavClick(e, item.href)}
                         className={({ isActive }) =>
                             `flex items-center gap-x-1 font-medium transition-smooth ${isActive && !item.href.includes("#")
-                                ? "text-accent border-b-2 border-accent"
-                                : "text-primary-foreground hover:text-accent"
+                                ? "text-white border-b-2 border-white"
+                                : "text-primary-foreground hover:text-white"
                             }`
                         }
                     >
                         <span>{item.name}</span>
-                        {item.hasDropdown && <ChevronDown size={16} />}
                     </NavLink>
                 </div>
             ))}

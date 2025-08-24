@@ -20,7 +20,7 @@ const Hero = () => {
             <div className="space-y-2">
               <h1 className=" text-3xl lg:text-6xl xl:text-7xl font-bold text-primary-foreground leading-tight  lg:flex lg:flex-col gap-2 max-lg:items-center">
                 {t('hero.subtitle1')}
-                <span className=" text-accent">
+                <span className=" text-white">
                   {" "} {t('hero.subtitle2')}
                 </span>
               </h1>
@@ -49,7 +49,7 @@ const Hero = () => {
 
               {/* Floating Badge */}
               <div className="absolute -top-4 -right-4 z-20 ">
-                <div className="bg-accent text-accent-foreground px-6 py-3 rounded-full shadow-elegant">
+                <div className="bg-accent text-white-foreground px-6 py-3 rounded-full shadow-elegant">
                   <div className="text-center">
                     <div className="font-bold text-lg">25+</div>
                     <div className="text-sm">{t('hero.experience')}</div>
