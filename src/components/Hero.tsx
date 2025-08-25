@@ -11,7 +11,7 @@ const Hero = () => {
       {/* Background Patterns */}
       <div className="absolute inset-0 bg-gradient-subtle"></div>
       <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-accent/5 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-accent/10 rounded-full blur-2xl"></div>
+      <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-white/20 rounded-full blur-2xl"></div>
 
       <div className="container mx-auto px-4 lg:px-8 pt-8 pb-1">
         <div className="grid md:grid-cols-2 gap-2 lg:gap-12 items-center min-h-[80vh]">

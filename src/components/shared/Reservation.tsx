@@ -22,7 +22,7 @@ const ReservationCalendar = ({ className, title }: { className?: string, title?:
       <Button
         variant="hero"
         size="lg"
-        className={`group ${className}`}
+        className={`group  text-white ${className}`}
         onClick={() => setOpenCalendar(true)}
       >
         <CalendarIcon className="ml-2" size={20} />
