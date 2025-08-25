@@ -49,7 +49,7 @@ const WhyChooseUs = () => {
               key={index}
               className="text-center group hover:scale-105 transition-transform duration-300"
             >
-              <div className="text-white mb-6 flex justify-center group-hover:scale-110 transition-transform">
+              <div className="text-accent mb-6 flex justify-center group-hover:scale-110 transition-transform">
                 {feature.icon}
               </div>
               <h3 className="text-xl font-bold text-card-foreground mb-4">
