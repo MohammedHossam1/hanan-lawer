@@ -19,7 +19,7 @@
     --popover-foreground: 0 0% 15%;
 
     /* Primary - Deep teal for professional legal branding */
-    --primary: 336 55% 81%;
+    --primary: var(--main);
     --primary-foreground: 0 0% 98%;
     --primary-dark: var(--main);
 
@@ -35,8 +35,8 @@
     --accent: var(--main);
     --accent-foreground: 0 0% 15%;
     --accent-glow: var(--main);
-    --main: 336 55% 81%;
-    --sub: 0 36% 68%;
+    --main: 0 36% 68%;
+    --sub: 12 52% 82%;
     /* Status colors */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
@@ -45,7 +45,7 @@
     /* UI elements */
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 336 55% 81%;
+    --ring: var(--main);
     /* Professional gradients */
     --gradient-hero: linear-gradient(135deg, hsl(var(--main)), hsl(var(--sub)));
     --gradient-accent: linear-gradient(135deg, hsl(0, 0%, 0%), hsl(34, 78%, 2%));

@@ -20,22 +20,22 @@ const Header = () => {
     { name: t("header.nav.contact"), href: "/#contact" }
   ];
 
- 
+
 
   return (
     <header className="h-[64px]">
-      <div className="fixed top-0 w-full z-50 bg-primary/95 backdrop-blur-sm border-b border-primary-dark">
+      <div className="fixed top-0 w-full z-50 bg-primary backdrop-blur-sm border-b border-primary-dark">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            
+
             {/* Logo */}
-            <Link to="/" >
-              <img src={logo} alt="logo" className="w-24 lg:w-32" />
+            <Link to="/" className="flex items-center gap-x-3 rounded-full" >
+              <img src={logo} alt="logo" className="size-12 rounded-full" />
             </Link>
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-x-8">
-              <NavigationLinks  navigation={navigation} />
+              <NavigationLinks navigation={navigation} />
             </nav>
 
             {/* CTA & Mobile Menu */}

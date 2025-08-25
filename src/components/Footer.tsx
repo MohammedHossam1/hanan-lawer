@@ -53,9 +53,10 @@ const Footer = () => {
           <div>
             <div className="mb-6">
               {/* Logo */}
-              <Link to="/" className="" >
-                <img src={logo} alt="logo" className="w-3/4" />
+              <Link to="/" className="flex items-center gap-x-3 rounded-full" >
+                <img src={logo} alt="logo" className="w-24 rounded-full" />
               </Link>
+            
             </div>
             <p className="text-primary-foreground/80 mb-6 leading-relaxed">{t("footer.company.description")}</p>
 
