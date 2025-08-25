@@ -32,7 +32,7 @@ const ContactForm = () => {
           placeholder={t("contactForm.message")}
           className="w-full border rounded-lg p-2 lg:p-3"
         />
-        <Button type="submit" className="w-full !bg-gradient-hero text-white">
+        <Button type="submit" className="w-full !bg-gradient-hero border text-white">
           {t("contactForm.send")}
         </Button>
       </form>

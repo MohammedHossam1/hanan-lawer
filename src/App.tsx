@@ -16,7 +16,7 @@ import ServiceDetails from "./components/Services/ServiceDetails";
 
 const queryClient = new QueryClient();
 const App = () => {
-  const { t, i18n } = useTranslation();
+  const {  i18n } = useTranslation();
 
   useEffect(() => {
     document.documentElement.dir = 'rtl';
@@ -24,12 +24,12 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        {/* <ScrollToTopOnRouteChange /> */}
         <ScrollToTopBtn />
 
         <Toaster />
         <Sonner />
         <BrowserRouter>
+        <ScrollToTopOnRouteChange />
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Index />} />          {/* / */}

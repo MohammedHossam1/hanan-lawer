@@ -12,7 +12,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-const ReservationCalendar = ({ className }: { className?: string }) => {
+const ReservationCalendar = ({ className, title }: { className?: string, title?: string }) => {
   const { t } = useTranslation();
   const [openCalendar, setOpenCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
@@ -46,7 +46,9 @@ const ReservationCalendar = ({ className }: { className?: string }) => {
             onClick={() => setOpenCalendar(false)}
             className="mt-4 w-full"
           >
-            {t("reservationCalendar.confirm")}
+            {
+              title ? title :
+                t("reservationCalendar.confirm")}
           </Button>
         </DialogContent>
       </Dialog>

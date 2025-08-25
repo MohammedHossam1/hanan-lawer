@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
 import SectionHeader from '../SectionHeader';
 import { Link } from 'react-router-dom';
+import ReservationCalendar from '../shared/Reservation';
 
 interface ServiceItem {
   title: string;
@@ -70,9 +71,9 @@ const Services = () => {
                 ))}
               </ul>
 
-       
+
               <Link to={`/services/${service.slug}`}>
-                <Button variant="ghost" className="text-accent hover:text-accent-foreground hover:bg-accent group-hover:bg-accent group-hover:text-accent-foreground">
+                <Button variant="ghost" className="text-white hover:text-white bg-foreground hover:bg-accent group-hover:bg-accent group-hover:text-white-foreground">
                   {t("services.learnMore")}
                 </Button>
               </Link>
@@ -89,12 +90,17 @@ const Services = () => {
             {cta.description}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="hero" size="lg">
-              {cta.btnConsult}
-            </Button>
-            <Button variant="outline" size="lg" className="text-main border-primary-foreground hover:bg-primary-foreground hover:text-primary">
-              {cta.btnCall}
-            </Button>
+    
+            <ReservationCalendar title={cta.btnConsult} />
+
+            <a href="tel:+048877222">
+
+              <Button variant="outline" size="lg" className="text-main border-primary-foreground hover:bg-primary-foreground hover:text-primary">
+                {cta.btnCall}
+              </Button>
+
+            </a>
+
           </div>
         </div>
       </div>

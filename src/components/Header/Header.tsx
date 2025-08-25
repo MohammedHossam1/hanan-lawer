@@ -12,12 +12,12 @@ const Header = () => {
   const { t } = useTranslation();
 
   const navigation = [
-    { name: t("header.nav.home"), href: "/", hasDropdown: false },
-    { name: t("header.nav.about"), href: "/about", hasDropdown: false },
-    { name: t("header.nav.services"), href: "/services", hasDropdown: false },
-    { name: t("header.nav.whyUs"), href: "/#why-us", hasDropdown: false },
-    { name: t("header.nav.testimonials"), href: "/#testimonials", hasDropdown: false },
-    { name: t("header.nav.contact"), href: "/#contact", hasDropdown: false }
+    { name: t("header.nav.home"), href: "/" },
+    { name: t("header.nav.about"), href: "/about" },
+    { name: t("header.nav.services"), href: "/services" },
+    { name: t("header.nav.whyUs"), href: "/#why-us" },
+    { name: t("header.nav.testimonials"), href: "/#testimonials" },
+    { name: t("header.nav.contact"), href: "/#contact" }
   ];
 
  
@@ -43,18 +43,18 @@ const Header = () => {
               {/* contact */}
               <div className="flex items-center gap-4 max-lg:hidden">
                 <div className="flex items-center gap-x-2">
-                  <Phone className="text-accent w-4 h-4" />
+                  <Phone className="text-white w-4 h-4" />
                   <span className="text-white">{t("header.phone")}</span>
                 </div>
                 <div className="flex items-center gap-x-2">
-                  <Mail className="text-accent w-4 h-4" />
+                  <Mail className="text-white w-4 h-4" />
                   <span className="text-white">{t("header.email")}</span>
                 </div>
               </div>
               {/* Mobile menu button */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="lg:hidden text-primary-foreground hover:text-accent transition-smooth"
+                className="lg:hidden text-primary-foreground hover:text-white transition-smooth"
               >
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
