@@ -8,12 +8,12 @@ import WhyChooseUs from '@/components/WhyChooseUs';
 const Index = () => {
   
   return (
-      <main className=''>
+      <main className='overflow-x-hidden'>
         <Hero />
         <About isPage={false} />
         <Services />
         <WhyChooseUs />
-        <Testimonials />
+        <Testimonials  />
         <CallToAction />
       </main>
   );

@@ -11,9 +11,8 @@ const LanguageSwitcher = () => {
     };
 
     return (
-        <Button variant="outline" onClick={toggleLanguage}>
+        <Button variant="outline" className="hover:!bg-gray-100 hover:!text-accent " onClick={toggleLanguage}>
             {i18n.language === "ar" ? "ع" : "ע"}
-
         </Button>
     );
 };
