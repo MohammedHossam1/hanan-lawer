@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 
+
 const ContactForm = () => {
   const { t } = useTranslation();
 
@@ -27,12 +28,24 @@ const ContactForm = () => {
           placeholder={t("contactForm.email")}
           className="w-full border rounded-lg p-2 lg:p-3"
         />
+      
+            <input
+              required
+              type="city"
+              placeholder={t("contactForm.city")}
+              className="w-full border rounded-lg p-2 lg:p-3"
+            />
+         
+     
+        
+
+        
         <textarea
           required
           placeholder={t("contactForm.message")}
           className="w-full border rounded-lg p-2 lg:p-3"
         />
-        <Button type="submit" className="w-full !bg-gradient-hero border text-white">
+        <Button type="submit" className="w-full  ">
           {t("contactForm.send")}
         </Button>
       </form>

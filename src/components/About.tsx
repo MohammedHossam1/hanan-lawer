@@ -6,8 +6,8 @@ const About = ({ isPage = true }: { isPage?: boolean }) => {
   const specialties = t("about.specialties_list", { returnObjects: true }) as string[];
 
   return (
-    <section className={`pt-10 lg:pt-20 relative overflow-hidden ${isPage ? " min-h-[calc(100dvh-64px)]" : ""}`}>
-      <div className="container grid grid-cols-1 md:grid-cols-2 gap-4">
+    <section className={`pt-10 max-lg:pb-5 lg:pt-20 relative overflow-hidden ${isPage ? " min-h-[calc(100dvh-64px)]" : ""}`}>
+      <div className="container mx-auto px-4 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="flex justify-center gap-2 flex-col">
           <div className="text-start max-w-3xl mx-auto mb-5 space-y-2 lg:space-y-5">
             <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-primary">

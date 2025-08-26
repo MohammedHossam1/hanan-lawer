@@ -4,32 +4,17 @@ import { useTranslation } from 'react-i18next';
 import SectionHeader from '../SectionHeader';
 import { Link } from 'react-router-dom';
 import ReservationCalendar from '../shared/Reservation';
-
-interface ServiceItem {
-  title: string;
-  description: string;
-  slug: string;
-  features: string[];
-}
+import { servicesItems, testimonialsCta } from '@/data';
 
 const Services = () => {
   const { t } = useTranslation();
-
-  const services = t("services.items", { returnObjects: true }) as ServiceItem[];
-
+  const services = servicesItems
   const sectionHeader = {
     subtitle: t('services.sectionHeader.subtitle'),
     title: t('services.sectionHeader.title'),
     description: t('services.sectionHeader.description')
   };
-
-  const cta = {
-    title: t('services.cta.title'),
-    description: t('services.cta.description'),
-    btnConsult: t('services.cta.btnConsult'),
-    btnCall: t('services.cta.btnCall')
-  };
-
+  const cta = testimonialsCta
   const icons = [<Scale key="scale" />, <Shield key="shield" />, <Home key="home" />, <Users key="users" />, <Briefcase key="briefcase" />];
 
   return (
@@ -90,7 +75,7 @@ const Services = () => {
             {cta.description}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-    
+
             <ReservationCalendar title={cta.btnConsult} />
 
             <a href="tel:+048877222">

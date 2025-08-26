@@ -1,12 +1,11 @@
+import { servicesItems } from "@/data";
 import { useParams } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import serviceImage from "../../assets/service.jpg";
 
 const ServiceDetails = () => {
     const { slug } = useParams();
-    const { t } = useTranslation();
 
-    const services = t("services.items", { returnObjects: true }) as any[];
+    const services = servicesItems
     const service = services.find((s) => s.slug === slug);
 
     if (!service) return <p className="text-center mt-10">Service not found</p>;

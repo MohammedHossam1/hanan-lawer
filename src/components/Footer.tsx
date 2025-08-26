@@ -10,8 +10,6 @@ const Footer = () => {
   const quickLinks = [
     { name: t("footer.quickLinks.links.home"), href: "#" },
     { name: t("footer.quickLinks.links.about"), href: "#about" },
-    { name: t("footer.quickLinks.links.services"), href: "#services" },
-    { name: t("footer.quickLinks.links.blog"), href: "#blog" },
     { name: t("footer.quickLinks.links.contact"), href: "#contact" }
   ];
 
@@ -111,15 +109,20 @@ const Footer = () => {
         </div>
 
         {/* Bottom Footer */}
-        <div className="border-t border-primary-foreground/20 py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="border-t border-primary-foreground/20 py-8"  >
+          <div className="flex flex-col md:flex-row justify-between max-lg:text-center items-center gap-4">
             <div className="text-primary-foreground/60 text-sm">{t("footer.bottom.rights") + " © " + new Date().getFullYear()}</div>
-            <div className="flex flex-wrap gap-6">
+            <div className="flex flex-wrap gap-6 max-lg:text-center">
               {legalPages.map((page, index) => (
                 <a key={index} href={page.href} className="text-primary-foreground/60 hover:text-white text-sm transition-smooth">
                   {page.name}
                 </a>
               ))}
+            </div>
+            <div className="">
+              <p className="text-primary-foreground/60 text-sm">{t("footer.bottom.powered")} {" "}
+              <a href="https://qadi-tech.com/home" className="font-bold">El Qadi-tech</a>
+              </p>
             </div>
           </div>
         </div>

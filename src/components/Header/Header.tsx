@@ -29,7 +29,7 @@ const Header = () => {
           <div className="flex items-center justify-between h-16">
 
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-x-3 rounded-full" >
+            <Link to="/" className="flex items-center gap-x-3 rounded-full max-lg:order-1" >
               <img src={logo} alt="logo" className="size-12 rounded-full" />
             </Link>
 
@@ -39,9 +39,9 @@ const Header = () => {
             </nav>
 
             {/* CTA & Mobile Menu */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 max-lg:order-3" >
               {/* contact */}
-              <div className="flex items-center gap-4 max-lg:hidden">
+              <div className="flex items-center gap-4 max-lg:hidden ">
                 <div className="flex items-center gap-x-2">
                   <Phone className="text-white w-4 h-4" />
                   <span className="text-white">{t("header.phone")}</span>
@@ -59,7 +59,7 @@ const Header = () => {
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
             </div>
-            <div className="max-lg:hidden">
+            <div className="max-lg:order-2">
               <LanguageSwitcher />
             </div>
           </div>
@@ -71,8 +71,8 @@ const Header = () => {
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="lg:hidden overflow-hidden bg-card w-full border-t shadow-md"
+                transition={{ duration: 0.3 }}
+                className="lg:hidden overflow-hidden bg-white w-full border-t shadow-md"
               >
                 <div className="py-4 space-y-2 flex flex-col items-center">
                   <NavigationLinks
@@ -92,9 +92,7 @@ const Header = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="lg:hidden">
-                    <LanguageSwitcher />
-                  </div>
+             
                 </div>
               </motion.div>
             )}
