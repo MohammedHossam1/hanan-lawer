@@ -31,7 +31,7 @@ const ReservationCalendar = ({
       <Button
         variant="hero"
         size="lg"
-        className={`group text-white ${className}`}
+        className={`group text-white max-xxs:!text-xs ${className}`}
         onClick={() => {
           setStep("calendar");
           setOpenDialog(true);
@@ -45,7 +45,7 @@ const ReservationCalendar = ({
         open={openDialog}
         onOpenChange={(open) => {
           setOpenDialog(open);
-          if (!open) setStep("calendar"); // reset عند الغلق
+          if (!open) setStep("calendar"); 
         }}
       >
         <DialogContent className="max-w-sm overflow-hidden">
