@@ -23,7 +23,7 @@ const ReservationCalendar = ({
 }) => {
   const { t } = useTranslation();
   const [openDialog, setOpenDialog] = useState(false);
-  const [step, setStep] = useState<"calendar" | "form">("calendar");
+  const [step, setStep] = useState<"calendar" | "form">("form");
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
 
   return (
@@ -33,7 +33,7 @@ const ReservationCalendar = ({
         size="lg"
         className={`group text-white max-xxs:!text-xs ${className}`}
         onClick={() => {
-          setStep("calendar");
+          setStep("form");
           setOpenDialog(true);
         }}
       >
@@ -45,7 +45,7 @@ const ReservationCalendar = ({
         open={openDialog}
         onOpenChange={(open) => {
           setOpenDialog(open);
-          if (!open) setStep("calendar"); 
+          if (!open) setStep("form"); 
         }}
       >
         <DialogContent className="max-w-sm overflow-hidden">
@@ -72,6 +72,7 @@ const ReservationCalendar = ({
                 <Button
                   onClick={() => {
                     if (selectedDate) setStep("form");
+                    setOpenDialog(false);
                   }}
                   className="mt-4 w-full"
                 >
@@ -86,7 +87,7 @@ const ReservationCalendar = ({
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <ContactForm   />
+                <ContactForm onClick={() => setStep("calendar")}  isBooking={true} />
               </motion.div>
             )}
           </AnimatePresence>

@@ -40,8 +40,9 @@
     /* --main: 0 36% 68%; old*/
     /* --sub: 12 52% 82%; old */
 
-    --main: 9 26% 25%;
-    --sub: 5 23% 44%;
+    --main: 21 33% 61%;
+    
+    --sub: 334 48% 81%;
     /* Status colors */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;

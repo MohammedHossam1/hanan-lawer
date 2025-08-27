@@ -1,20 +1,24 @@
-import { Scale, Shield, Home, Users, Briefcase } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { servicesItems, servicesItemsHe, testimonialsCta, testimonialsCtaHe } from '@/data';
+import { Briefcase, Home, Scale, Shield, Users } from 'lucide-react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SectionHeader from '../SectionHeader';
-import { Link } from 'react-router-dom';
 import ReservationCalendar from '../shared/Reservation';
-import { servicesItems, testimonialsCta } from '@/data';
+import ServiceDetails from './ServiceDetails';
 
 const Services = () => {
-  const { t } = useTranslation();
-  const services = servicesItems
+  const { t, i18n } = useTranslation();
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedService, setSelectedService] = useState<any>(null);
+
+  const services = i18n.language === 'ar' ? servicesItems : servicesItemsHe
   const sectionHeader = {
     subtitle: t('services.sectionHeader.subtitle'),
     title: t('services.sectionHeader.title'),
     description: t('services.sectionHeader.description')
   };
-  const cta = testimonialsCta
+  const cta = i18n.language === 'ar' ? testimonialsCta : testimonialsCtaHe
   const icons = [<Scale key="scale" />, <Shield key="shield" />, <Home key="home" />, <Users key="users" />, <Briefcase key="briefcase" />];
 
   return (
@@ -46,22 +50,16 @@ const Services = () => {
               <p className="text-muted-foreground mb-6 leading-relaxed">
                 {service.description}
               </p>
-
-              <ul className="space-y-2 mb-6">
-                {service.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-center text-card-foreground">
-                    <div className="w-2 h-2 bg-accent rounded-full me-3"></div>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-
-
-              <Link to={`/services/${service.slug}`}>
+              <button
+                onClick={() => {
+                  setSelectedService(service);
+                  setOpenDialog(true);
+                }}
+              >
                 <Button variant="ghost" className="text-white hover:text-white bg-foreground hover:bg-accent group-hover:bg-accent group-hover:text-white-foreground">
                   {t("services.learnMore")}
                 </Button>
-              </Link>
+              </button>
             </div>
           ))}
         </div>
@@ -89,8 +87,13 @@ const Services = () => {
           </div>
         </div>
       </div>
+      {openDialog && selectedService &&
+        <ServiceDetails service={selectedService}
+          openDialog={openDialog} setOpenDialog={setOpenDialog} />
+      }
     </section>
   );
 };
+
 
 export default Services;

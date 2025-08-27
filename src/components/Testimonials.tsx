@@ -83,7 +83,6 @@ const Testimonials = () => {
                       "{testimonial.content}"
                     </p>
 
-                    {/* صورة الفيديو */}
                     {testimonial.videoUrl && (
                       <div className="relative group max-lg:w-1/2 " onClick={() => setSelectedVideo(testimonial.videoUrl)}>
 

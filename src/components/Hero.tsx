@@ -56,7 +56,7 @@ const Hero = () => {
               <div className="absolute max-lg:hidden -top-4 -right-4 z-20 ">
                 <div className="bg-accent text-white-foreground px-6 py-3 rounded-full shadow-elegant">
                   <div className="text-center text-white">
-                    <div className="font-bold  text-lg">25+</div>
+                    <div className="font-bold  text-lg">10+</div>
                     <div className="text-sm">{t('hero.experience')}</div>
                   </div>
                 </div>
