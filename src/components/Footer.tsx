@@ -1,5 +1,5 @@
-import { Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.jpg";
@@ -13,13 +13,13 @@ const Footer = () => {
     { name: t("footer.quickLinks.links.contact"), href: "#contact" }
   ];
 
-  const services = [
-    { name: t("footer.services.items.business"), href: "#" },
-    { name: t("footer.services.items.criminal"), href: "#" },
-    { name: t("footer.services.items.realEstate"), href: "#" },
-    { name: t("footer.services.items.family"), href: "#" },
-    { name: t("footer.services.items.consulting"), href: "#" }
-  ];
+  // const services = [
+  //   { name: t("footer.services.items.business"), href: "#" },
+  //   { name: t("footer.services.items.criminal"), href: "#" },
+  //   { name: t("footer.services.items.realEstate"), href: "#" },
+  //   { name: t("footer.services.items.family"), href: "#" },
+  //   { name: t("footer.services.items.consulting"), href: "#" }
+  // ];
 
   const legalPages = [
     { name: t("footer.legal.privacy"), href: "#" },
@@ -83,7 +83,7 @@ const Footer = () => {
           </div>
 
           {/* Services */}
-          <div>
+          {/* <div>
             <h3 className="text-xl font-bold mb-6">{t("footer.services.title")}</h3>
             <ul className="space-y-3">
               {services.map((service, index) => (
@@ -92,7 +92,7 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
 
           {/* Contact Info */}
           <div>
