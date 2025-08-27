@@ -39,7 +39,7 @@ const CallToAction = () => {
               <div className="text-primary-foreground/80">{t("callToAction.stats.cases_desc")}</div>
             </div>
             <div className="space-y-2">
-              <div className="text-3xl font-bold text-white">{t("callToAction.stats.experience")}</div>
+              <div className="text-3xl font-bold text-white">{"10+"}</div>
               <div className="text-primary-foreground/80">{t("callToAction.stats.experience_desc")}</div>
             </div>
           </div>
