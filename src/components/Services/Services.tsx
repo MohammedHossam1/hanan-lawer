@@ -56,7 +56,7 @@ const Services = () => {
                 {service.title}
               </h3>
 
-              <p className="text-muted-foreground mb-6 leading-relaxed">
+              <p className="text-muted-foreground mb-6 leading-relaxed line-clamp-2">
                 {service.description}
               </p>
               <button
