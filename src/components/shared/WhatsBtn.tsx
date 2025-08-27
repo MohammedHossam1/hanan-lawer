@@ -2,14 +2,14 @@ import { motion } from "framer-motion";
 import { FaWhatsapp } from "react-icons/fa";
 
 interface FloatingWhatsAppButtonProps {
-  phone: string;
+ 
   message?: string;
   size?: number;
   position?: "bottom-right" | "bottom-left" | "top-right" | "top-left";
 }
 
 export default function WhatsBtn({
-  phone,
+  
   message = "",
   size = 52,
   position = "bottom-right",
@@ -21,7 +21,7 @@ export default function WhatsBtn({
     "top-left": "top-4 left-4",
   };
 
-  const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  const url = `https://wa.me/+97248877222?text=${encodeURIComponent(message)}`;
 
   return (
     <motion.a
