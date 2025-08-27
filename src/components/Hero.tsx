@@ -1,4 +1,4 @@
-import heroImage from '@/assets/hero.png';
+import heroImage from '@/assets/hero.jpg';
 import heroImageRemoved from '@/assets/hero-removed.png';
 import { useTranslation } from 'react-i18next';
 import ReservationCalendar from './shared/Reservation';
@@ -17,7 +17,7 @@ const Hero = () => {
       <div className="container mx-auto px-4 lg:px-8 lg:pt-8 lg:pb-1 ">
         <div className="grid grid-cols-2 gap-2 lg:gap-12 items-center  lg:min-h-[80vh]">
           {/* Left Content */}
-          <div className="space-y-2   lg:space-y-8 animate-in slide-in-from-right duration-700 ">
+          <div className="space-y-2   lg:space-y-8 duration-700 ">
             <div className="space-y-2" >
               <h1 className="  max-xxs:text-2xl  text-3xl  text-nowrap md:text-6xl xl:text-7xl font-bold text-primary-foreground leading-tight  lg:flex lg:flex-col gap-2 max-lg:items-center">
                 {t('hero.subtitle1')}<br className='lg:hidden' />
@@ -41,14 +41,14 @@ const Hero = () => {
           </div>
 
           {/* Right Content - Hero Image */}
-          <div className="relative animate-in slide-in-from-left duration-700 delay-200 max-lg:mt-5 ">
+          <div className="relative duration-700 delay-200 max-lg:mt-5 ">
             <div className="relative max-xl:flex flex-col  gap-2 ">
               {/* Main Image */}
               <div className="relative z-10 h-full">
                 <img
                   src={imageSec}
                   alt="Professional Legal Consultant"
-                  className="w-full lg:max-w-lg lg:max-h-lg lg:h-[350px] md:h-full object-top object-contain lg:object-cover max-lg:ms-auto lg:mx-auto lg:rounded-2xl lg:shadow-glow "
+                  className="w-full lg:max-w-lg lg:max-h-lg lg:h-[450px] md:h-full object-top object-contain lg:object-cover max-lg:ms-auto lg:mx-auto lg:rounded-2xl lg:shadow-glow "
                 />
               </div>
 

@@ -11,26 +11,12 @@ const ServiceDetails = ({ openDialog = true, setOpenDialog, service }: { openDia
     if (!service) return <p className="text-center mt-10">Service not found</p>;
     return (
         <section className="relative container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 place-items-center h-full gap-5 max-lg:pb-5 min-h-[calc(100dvh-64px)]">
-
-            {/* Decorative shapes */}
-            {/* <div className="absolute top-10 left-10 w-32 h-32 bg-accent/20 rounded-full mix-blend-multiply animate-pulse"></div>
-            <div className="absolute - bottom-40 right-40 w-32 h-32 border-2 border-accent/20 rounded-full mix-blend-multiply animate-pulse"></div> */}
-
-            {/* Text content */}
-
-
-            {/* Image */}
-            {/* <div className="relative rounded-xl overflow-hidden z-10">
-                <img src={serviceImage} alt={service.title} className="w-full" />
-                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-accent/20 to-color-main/20 mix-blend-overlay pointer-events-none"></div>
-            </div> */}
             <Dialog
                 open={openDialog}
-
                 modal
                 onOpenChange={(open) => setOpenDialog(open)}
             >
-                <DialogContent className="overflow-hidden" >
+                <DialogContent className=" max-w-screen-lg " >
                     <DialogHeader >
                         <DialogTitle>{service.title}</DialogTitle>
                     </DialogHeader>

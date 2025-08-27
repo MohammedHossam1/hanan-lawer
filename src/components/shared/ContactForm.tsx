@@ -75,7 +75,7 @@ const ContactForm = ({ onClick ,isBooking}: { onClick?: () => void ,isBooking?:b
               <FormControl>
                 <Input className="w-full border rounded-lg p-2 lg:p-3 h-12" placeholder={t("contactForm.name")} {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="" />
             </FormItem>
           )}
         />
