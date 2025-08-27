@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { servicesItems, servicesItemsHe, testimonialsCta, testimonialsCtaHe } from '@/data';
 import { Briefcase, Home, Scale, Shield, Users } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SectionHeader from '../SectionHeader';
 import ReservationCalendar from '../shared/Reservation';
@@ -11,14 +11,23 @@ const Services = () => {
   const { t, i18n } = useTranslation();
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedService, setSelectedService] = useState<any>(null);
+  const [services, setServices] = useState(servicesItems);
+  const [cta, setCta] = useState(testimonialsCta);
 
-  const services = i18n.language === 'ar' ? servicesItems : servicesItemsHe
   const sectionHeader = {
     subtitle: t('services.sectionHeader.subtitle'),
     title: t('services.sectionHeader.title'),
     description: t('services.sectionHeader.description')
   };
-  const cta = i18n.language === 'ar' ? testimonialsCta : testimonialsCtaHe
+  useEffect(() => {
+    if (i18n.language === 'ar') {
+      setServices(servicesItems);
+      setCta(testimonialsCta);
+    } else {
+      setServices(servicesItemsHe);
+      setCta(testimonialsCtaHe);
+    }
+  }, [i18n.language]);
   const icons = [<Scale key="scale" />, <Shield key="shield" />, <Home key="home" />, <Users key="users" />, <Briefcase key="briefcase" />];
 
   return (

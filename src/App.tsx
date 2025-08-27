@@ -20,7 +20,6 @@ const App = () => {
   useEffect(() => {
     document.documentElement.dir = 'rtl';
     document.documentElement.lang = i18n.language;
-
   }, [i18n.language]);
 
 
