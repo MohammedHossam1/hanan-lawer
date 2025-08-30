@@ -19,7 +19,7 @@ const About = ({ isPage = true }: { isPage?: boolean }) => {
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-lg lg:text-2xl font-semibold text-white">
+            <h3 className="text-lg lg:text-2xl font-semibold text-accent">
               {t("about.specialties_title")}
             </h3>
             <ul className="space-y-2 list-disc list-inside text-muted-foreground">
