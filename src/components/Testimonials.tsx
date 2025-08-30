@@ -7,8 +7,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { testimonialsItems } from "@/data";
-import { AnimatePresence, motion } from "framer-motion";
-import { Quote, Star, UserCircle, X } from "lucide-react";
+import { Quote, Star, UserCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import SectionHeader from "./SectionHeader";
@@ -28,7 +27,6 @@ const Testimonials = () => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
-  const [selectedVideo, setSelectedVideo] = useState<string | null>(null); 
   const testimonials = testimonialsItems;
 
 
@@ -83,34 +81,7 @@ const Testimonials = () => {
                       "{testimonial.content}"
                     </p>
 
-                    {testimonial.videoUrl && (
-                      <div className="relative group max-lg:w-1/2 " onClick={() => setSelectedVideo(testimonial.videoUrl)}>
-
-                        <img
-                          src={testimonial.avatar}
-                          alt={testimonial.name}
-                          className="cursor-pointer rounded-lg w-full aspect-video object-cover"
-
-                        />
-                        <div className=" !flex absolute bg-black/10 group-hover:bg-black/50 transotion-all duration-300 cursor-pointer rounded-lg inset-0 items-center justify-center">
-                          {/* play icon */}
-                          <div className=" group-hover:opacity-100 opacity-30 transotion-all duration-300 top-10">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 24 24"
-                              fill="currentColor"
-                              className="w-12 h-12 text-white"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          </div>
-                        </div>
-                      </div>
-                    )}
+             
                   </div>
 
                   <div className="flex items-center gap-x-4 mt-4">
@@ -145,45 +116,7 @@ const Testimonials = () => {
           </div>
         </Carousel>
 
-        {/* Modal للفيديو */}
-        <AnimatePresence>
-          {selectedVideo && (
-            <motion.div
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedVideo(null)}
 
-            >
-              <motion.div
-                className="relative w-full max-w-3xl p-4"
-                initial={{ scale: 0.8 }}
-                animate={{ scale: 1 }}
-                exit={{ scale: 0.8 }}
-                
-
-              >
-                <button
-
-                  className="absolute top-2 right-2 text-white text-2xl"
-                  onClick={() => setSelectedVideo(null)}
-                >
-                  <X />
-                </button>
-                <div className="aspect-video">
-                  <iframe
-                    src={selectedVideo}
-                    title="YouTube video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full rounded-lg"
-                  ></iframe>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
     </section>
   );

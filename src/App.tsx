@@ -9,6 +9,7 @@ import Layout from "./Layout";
 import ScrollToTopOnRouteChange from "./components/shared/ScrollToTopOnRouteChange";
 import WhatsBtn from "./components/shared/WhatsBtn";
 import Loader from "./components/shared/Loader";
+import BlogDetails from "./pages/BlogDetails/Index";
 
 // Lazy load pages
 const Index = lazy(() => import("./pages/Index"));
@@ -42,6 +43,7 @@ const App = () => {
                 <Route path="about" element={<About />} />
                 <Route path="contact" element={<Index />} />
                 <Route path="blogs" element={<Index />} />
+                <Route path="blogs/:id" element={<BlogDetails />} />
                 <Route path="*" element={<NotFound />} />
               </Route>
             </Routes>

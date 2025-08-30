@@ -1,20 +1,24 @@
 import About from '@/components/About';
+import Blogs from '@/components/Blogs/Index';
 import CallToAction from '@/components/CallToAction';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services/Services';
+import SuccessStories from '@/components/SuccessStories/Index';
 import Testimonials from '@/components/Testimonials';
 import WhyChooseUs from '@/components/WhyChooseUs';
 
 const Index = () => {
   return (
-      <main className='overflow-x-hidden'>
-        <Hero />
-        <About isPage={false} />
-        <Services />
-        <WhyChooseUs />
-        <Testimonials  />
-        <CallToAction />
-      </main>
+    <main className='overflow-x-hidden'>
+      <Hero />
+      <About isPage={false} />
+      <Services />
+      <SuccessStories />
+      <WhyChooseUs />
+      <Testimonials />
+      <Blogs />
+      <CallToAction />
+    </main>
   );
 };
 

@@ -18,7 +18,7 @@ const ServiceDetails = ({ openDialog = true, setOpenDialog, service }: { openDia
             >
                 <DialogContent className=" max-w-screen-lg " >
                     <DialogHeader >
-                        <DialogTitle>{service.title}</DialogTitle>
+                        <DialogTitle className="hidden">{service.title}</DialogTitle>
                     </DialogHeader>
                     <AnimatePresence mode="wait">
                         <motion.div
