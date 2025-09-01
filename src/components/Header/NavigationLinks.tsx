@@ -40,7 +40,7 @@ const NavigationLinks = ({ navigation, onClick }: { navigation: { name: string; 
                         to={item.href}
                         onClick={(e) => handleNavClick(e, item.href)}
                         className={({ isActive }) =>
-                            `flex items-center gap-x-1 font-medium transition-smooth ${isActive && !item.href.includes("#")
+                            `flex items-center gap-x-1 max-xl:!text-sm  font-medium transition-smooth ${isActive && !item.href.includes("#")
                                 ? "text-white max-lg:text-accent  max-lg:font-bold border-b-2 border-white"
                                 : "text-primary-foreground max-lg:text-accent/80 max-lg:hover:text-accent"
                             }`

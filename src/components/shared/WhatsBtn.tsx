@@ -21,7 +21,7 @@ export default function WhatsBtn({
     "top-left": "top-4 left-4",
   };
 
-  const url = `https://wa.me/+97248877222?text=${encodeURIComponent(message)}`;
+  const url = `https://wa.me/0097248877222?text=${encodeURIComponent(message)}`;
 
   return (
     <motion.a

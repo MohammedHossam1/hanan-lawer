@@ -53,14 +53,19 @@ const Header = () => {
                 </div>
               </div>
               {/* Mobile menu button */}
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="lg:hidden text-primary-foreground hover:text-white transition-smooth"
-              >
-                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
+              <div className="flex items-center gap-x-2 ">
+                <div className="lg:hidden">
+                  <LanguageSwitcher />
+                </div>
+                <button
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  className="lg:hidden text-primary-foreground hover:text-white transition-smooth"
+                >
+                  {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                </button>
+              </div>
             </div>
-            <div className="max-lg:order-2">
+            <div className="max-lg:hidden">
               <LanguageSwitcher />
             </div>
           </div>
@@ -93,7 +98,7 @@ const Header = () => {
                       </span>
                     </div>
                   </div>
-             
+
                 </div>
               </motion.div>
             )}
