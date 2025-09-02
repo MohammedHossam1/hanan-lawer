@@ -10,13 +10,13 @@ const ServiceDetails = ({ openDialog = true, setOpenDialog, service }: { openDia
     const { t } = useTranslation();
     if (!service) return <p className="text-center mt-10">Service not found</p>;
     return (
-        <section className="relative container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 place-items-center h-full gap-5 max-lg:pb-5 min-h-[calc(100dvh-64px)]">
+        <section className="">
             <Dialog
                 open={openDialog}
                 modal
                 onOpenChange={(open) => setOpenDialog(open)}
             >
-                <DialogContent className=" max-w-screen-lg " >
+                <DialogContent className=" max-w-screen-lg w-[90%]  max-h-[90%] overflow-auto" >
                     <DialogHeader >
                         <DialogTitle className="hidden">{service.title}</DialogTitle>
                     </DialogHeader>
@@ -28,7 +28,7 @@ const ServiceDetails = ({ openDialog = true, setOpenDialog, service }: { openDia
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.3 }}
                         >
-                            <div className="relative p-8 rounded-2xl z-10">
+                            <div className="relative lg:p-4  xl:p-8 xl:rounded-2xl z-10  ">
                                 <h1 className="text-xl lg:text-3xl font-bold mb-4 text-subtle">{service.title}</h1>
                                 <p className="text-muted-foreground mb-6">{service.description}</p>
                                 <h2 className="text-xl font-semibold mb-4 text-color-main">{t("services.features")} :</h2>

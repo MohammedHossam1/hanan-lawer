@@ -2,6 +2,8 @@ import About from '@/components/About';
 import Blogs from '@/components/Blogs/Index';
 import CallToAction from '@/components/CallToAction';
 import Hero from '@/components/Hero';
+import HowWeWork from '@/components/HowWeWorks/Index';
+import MinutesWithHanan from '@/components/MinutesWithHanan/Index';
 import Services from '@/components/Services/Services';
 import SuccessStories from '@/components/SuccessStories/Index';
 import Testimonials from '@/components/Testimonials';
@@ -13,9 +15,11 @@ const Index = () => {
       <Hero />
       <About isPage={false} />
       <Services />
-      <SuccessStories />
+      <MinutesWithHanan />
       <WhyChooseUs />
       <Testimonials />
+      <HowWeWork />
+      <SuccessStories />
       <Blogs />
       <CallToAction />
     </main>

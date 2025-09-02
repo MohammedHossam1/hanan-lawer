@@ -14,7 +14,7 @@ export default function BlogDetails() {
     const t = blog[lang];
 
     return (
-        <article  className="mx-auto max-w-4xl p-6">
+        <article  className="container mx-auto p-4 lg:p-8">
             <header className="mb-6">
                 <h1 className="text-3xl font-bold text-accent mb-2">{t.title}</h1>
                 <p className="text-sm opacity-70">

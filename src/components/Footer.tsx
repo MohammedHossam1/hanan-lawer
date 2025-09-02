@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react";
+import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.jpg";
@@ -7,11 +7,16 @@ import logo from "../assets/logo.jpg";
 const Footer = () => {
   const { t } = useTranslation();
 
-  const quickLinks = [
-    { name: t("footer.quickLinks.links.home"), href: "#" },
-    { name: t("footer.quickLinks.links.about"), href: "#about" },
-    { name: t("footer.quickLinks.links.contact"), href: "#contact" }
+
+  const navigation = [
+    { name: t("header.nav.home"), href: "/" },
+    { name: t("header.nav.about"), href: "/about" },
+    { name: t("header.nav.services"), href: "/services" },
+    { name: t("header.nav.whyUs"), href: "/#why-us" },
+    { name: t("header.nav.testimonials"), href: "/#testimonials" },
+    { name: t("header.nav.blogs"), href: "/#blogs" },
   ];
+
 
   // const services = [
   //   { name: t("footer.services.items.business"), href: "#" },
@@ -30,8 +35,6 @@ const Footer = () => {
 
   const socials = [
     { icon: Facebook, label: t("footer.socials.facebook"), href: "#" },
-    { icon: Twitter, label: t("footer.socials.twitter"), href: "#" },
-    { icon: Linkedin, label: t("footer.socials.linkedin"), href: "#" },
     { icon: Instagram, label: t("footer.socials.instagram"), href: "https://www.instagram.com/hananakellawoffice" }
   ];
 
@@ -54,7 +57,7 @@ const Footer = () => {
               <Link to="/" className="flex items-center gap-x-3 rounded-full" >
                 <img src={logo} alt="logo" className="w-24 rounded-full" />
               </Link>
-            
+
             </div>
             <p className="text-primary-foreground/80 mb-6 leading-relaxed">{t("footer.company.description")}</p>
 
@@ -74,7 +77,7 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-6">{t("footer.quickLinks.title")}</h3>
             <ul className="space-y-3">
-              {quickLinks.map((link, index) => (
+              {navigation.map((link, index) => (
                 <li key={index}>
                   <a href={link.href} className="text-primary-foreground/80 hover:text-white transition-smooth">{link.name}</a>
                 </li>
@@ -82,17 +85,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Services */}
-          {/* <div>
-            <h3 className="text-xl font-bold mb-6">{t("footer.services.title")}</h3>
-            <ul className="space-y-3">
-              {services.map((service, index) => (
-                <li key={index}>
-                  <a href={service.href} className="text-primary-foreground/80 hover:text-white transition-smooth">{service.name}</a>
-                </li>
-              ))}
-            </ul>
-          </div> */}
 
           {/* Contact Info */}
           <div>
@@ -121,7 +113,7 @@ const Footer = () => {
             </div>
             <div className="">
               <p className="text-primary-foreground/60 text-sm">{t("footer.bottom.powered")} {" "}
-              <a href="https://qadi-tech.com/home" className="font-bold">El Qadi-tech</a>
+                <a href="https://qadi-tech.com/home" className="font-bold">El Qadi-tech</a>
               </p>
             </div>
           </div>
