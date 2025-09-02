@@ -6,7 +6,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import { testimonialsItems } from "@/data";
+import { testimonialsItems, testimonialsItemsHe } from "@/data";
 import { Quote, Star, UserCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -22,12 +22,12 @@ export interface Testimonial {
 }
 
 const Testimonials = () => {
-  const { t } = useTranslation();
+  const { t , i18n} = useTranslation();
 
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
-  const testimonials = testimonialsItems;
+  const testimonials = i18n.language === "ar" ? testimonialsItems : testimonialsItemsHe;
 
 
 

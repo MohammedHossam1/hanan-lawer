@@ -75,8 +75,6 @@ export const servicesItemsHe = [
     }
 ];
 
-
-
 export interface Testimonial {
     name: string;
     role: string;
@@ -407,4 +405,39 @@ export const BLOGS: BlogPost[] = [
             ],
         },
     },
+];
+
+
+export const testimonialsItemsHe: Testimonial[] = [
+    {
+        name: "אזהר",
+        role: "לקוחה",
+        content: "עורכת הדין היקרה חנן, אנחנו עדיין בתחילת הדרך, אבל האמון שלנו בך אינסופי. הנוכחות שלך, התמיכה והמסירות מעניקים לנו כוח להמשיך, ומשרים בנו תקווה שנגיע לצדק שאליו אנו שואפים.\nמילות תודה והערכה אינן מספיקות כדי לתאר את הערכתנו, אבל מספיק לנו לדעת שיש לנו לב טהור ושכל חכם שמוביל אותנו בבטחה לחיים רגועים וחדשים. 🥰❤️\nואכן, ההתמדה שלך היא מקור להשראה, והאמון שלנו בך גדול מכל מילה ❤️🥰",
+        rating: 5,
+        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face"
+    },
+    {
+        name: "מרים עלי",
+        role: "אשת בית",
+        content: "תודה רבה חנן, האל יתן לך שפע ברכות. השמים יורדים עליך טוב והאדמה מרים אותך. כבר אמרתי, ראיתי עורכות דין רבות, אבל אין כמוך בחכמה. תודה רבה על הצלת חיי 🙏❤️",
+        rating: 5,
+        avatar: avatar1,
+        videoUrl: "https://www.youtube.com/embed/3JZ_D3ELwOQ"
+    },
+    {
+        name: "פטמה עלי",
+        role: "מנהלת חברה",
+        content: "אני מכבדת ומעריכה אותך מכל הלב, אי אפשר לשכוח את מה שעשית בחיי.. תמיד אהיה אסירת תודה לך",
+        rating: 5,
+        avatar: avatar2,
+        videoUrl: "https://www.youtube.com/embed/3JZ_D3ELwOQ"
+    },
+    {
+        name: "ללא שם",
+        role: "לקוח",
+        content: "האמת, עורכת הדין הכי נהדרת שיש!",
+        rating: 5,
+        avatar: avatar3,
+        videoUrl: "https://www.youtube.com/embed/3JZ_D3ELwOQ"
+    }
 ];

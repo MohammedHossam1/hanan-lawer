@@ -34,7 +34,7 @@ const Footer = () => {
   ];
 
   const socials = [
-    { icon: Facebook, label: t("footer.socials.facebook"), href: "#" },
+    { icon: Facebook, label: t("footer.socials.facebook"), href: "https://www.facebook.com/share/1D19buG1eG/?mibextid=wwXIfr" },
     { icon: Instagram, label: t("footer.socials.instagram"), href: "https://www.instagram.com/hananakellawoffice" }
   ];
 
