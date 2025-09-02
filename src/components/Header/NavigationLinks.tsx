@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 const NavigationLinks = ({ navigation, onClick }: { navigation: { name: string; href: string; }[], onClick?: () => void }) => {
+    console.log(navigation,"NavigationLinks");
     const location = useLocation();
     const navigate = useNavigate();
     const handleNavClick = (e, href) => {
@@ -40,7 +41,7 @@ const NavigationLinks = ({ navigation, onClick }: { navigation: { name: string; 
                         to={item.href}
                         onClick={(e) => handleNavClick(e, item.href)}
                         className={({ isActive }) =>
-                            `flex items-center gap-x-1 max-xl:!text-sm  font-medium transition-smooth ${isActive && !item.href.includes("#")
+                            `flex items-center gap-x-1 text-sm font-medium transition-smooth ${isActive && !item.href.includes("#")
                                 ? "text-white max-lg:text-accent  max-lg:font-bold border-b-2 border-white"
                                 : "text-primary-foreground max-lg:text-accent/80 max-lg:hover:text-accent"
                             }`

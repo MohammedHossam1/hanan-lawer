@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Mail, Menu, Phone, X } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
@@ -11,15 +11,15 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t } = useTranslation();
 
-  const navigation = [
+  const navigation = useMemo(() => [
     { name: t("header.nav.home"), href: "/" },
     { name: t("header.nav.about"), href: "/about" },
     { name: t("header.nav.services"), href: "/services" },
     { name: t("header.nav.whyUs"), href: "/#why-us" },
     { name: t("header.nav.testimonials"), href: "/#testimonials" },
     { name: t("header.nav.blogs"), href: "/#blogs" },
-    { name: t("header.nav.contact"), href: "/#contact" }
-  ];
+    { name: t("header.nav.contact"), href: "/#contact" },
+  ], [t]); 
 
 
 
@@ -43,11 +43,11 @@ const Header = () => {
             <div className="flex items-center space-x-4 max-lg:order-3" >
               {/* contact */}
               <div className="flex items-center gap-4 max-lg:hidden ">
-                <div className="flex items-center gap-x-2">
+                <div className="flex items-center gap-x-2 text-sm">
                   <Phone className="text-white w-4 h-4" />
                   <span className="text-white">{t("header.phone")}</span>
                 </div>
-                <div className="flex items-center gap-x-2">
+                <div className="flex items-center gap-x-2 text-sm">
                   <Mail className="text-white w-4 h-4" />
                   <span className="text-white">{t("header.email")}</span>
                 </div>

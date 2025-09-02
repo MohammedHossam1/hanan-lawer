@@ -11,7 +11,6 @@ import { FaPlay } from "react-icons/fa";
 const SuccessStory = ({ thumbnail, videoUrl }: { thumbnail: string; videoUrl: string }) => {
   return (
     <Dialog>
-      {/* الصورة كبوابة لفتح الفيديو */}
       <DialogTrigger asChild>
         <div className="relative w-full aspect-[9/16] overflow-hidden rounded-xl cursor-pointer shadow-lg hover:opacity-90 transition">
           <img
@@ -20,12 +19,10 @@ const SuccessStory = ({ thumbnail, videoUrl }: { thumbnail: string; videoUrl: st
             className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute top-3 right-3 rounded-full p-2 animate-pulse ">
-            <FaPlay className="text-white size-6"/>
+            <FaPlay className="text-white size-6" />
           </div>
         </div>
       </DialogTrigger>
-
-      {/* المحتوى (الفيديو) */}
       <DialogContent className="max-w-sm md:max-w-md w-full p-0 overflow-hidden rounded-2xl">
         <div className="relative w-full aspect-[9/16] h-[90vh] bg-black">
           <video
@@ -64,7 +61,7 @@ export default function SuccessStories() {
   };
 
   return (
-    <section className="container mx-auto px-4 lg:px-8">
+    <section className="container mx-auto px-4 lg:px-8 pt-10">
       {/* Section Header */}
       <SectionHeader
         title={sectionHeader.title}
@@ -72,12 +69,15 @@ export default function SuccessStories() {
         desc={sectionHeader.description}
       />
 
-      {/* Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+      <div className="flex items-center justify-center gap-5">
         {videos.map((v, i) => (
-          <SuccessStory key={i} {...v} />
+          <div className="basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/6"  key={i} >
+
+            <SuccessStory {...v} />
+          </div>
         ))}
       </div>
+
     </section>
   );
 }

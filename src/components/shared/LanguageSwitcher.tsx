@@ -9,7 +9,7 @@ const LanguageSwitcher = () => {
   const toggleLanguage = () => {
     const newLang = i18n.language === "ar" ? "he" : "ar";
     i18n.changeLanguage(newLang);
-    document.documentElement.dir = newLang === "ar" ? "rtl" : "rtl"; // تقدر تخلي "ltr" لو عايز العبري يكتب من الشمال
+    document.documentElement.dir = newLang === "ar" ? "rtl" : "rtl"; 
   };
 
   return (
@@ -18,10 +18,10 @@ const LanguageSwitcher = () => {
         variant="outline"
         size="sm"
         onClick={toggleLanguage}
-        className="flex items-center gap-2 rounded-full border-accent text-accent hover:bg-white hover:text-accent  transition-all duration-300"
+        className="flex items-center gap-2 max-md:px-3 max-md:py-0  max-md:h-7 rounded-full border-accent text-accent hover:bg-white hover:text-accent  transition-all duration-300"
       >
-        <Globe className="w-4 h-4" />
-        <span className="font-medium text-sm">
+        <Globe className="!size-4 max-md:hidden" />
+        <span className="font-medium text-[11px] md:text-sm ">
           {i18n.language === "ar" ? "عربي" : "עברית"}
         </span>
       </Button>

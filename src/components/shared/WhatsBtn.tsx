@@ -9,8 +9,6 @@ interface FloatingWhatsAppButtonProps {
 }
 
 export default function WhatsBtn({
-  
-  message = "",
   size = 52,
   position = "bottom-right",
 }: FloatingWhatsAppButtonProps) {
@@ -21,7 +19,7 @@ export default function WhatsBtn({
     "top-left": "top-4 left-4",
   };
 
-  const url = `https://wa.me/0097248877222?text=${encodeURIComponent(message)}`;
+  const url = `https://wa.me/97248877222`;
 
   return (
     <motion.a
