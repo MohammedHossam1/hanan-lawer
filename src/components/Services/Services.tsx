@@ -85,7 +85,7 @@ const Services = () => {
 
             <ReservationCalendar title={cta.btnConsult} />
 
-            <a href="tel:+048877222">
+            <a href="tel:048877222">
 
               <Button variant="outline" size="lg" className="text-main border-primary-foreground hover:bg-primary-foreground hover:text-primary">
                 {cta.btnCall}

@@ -26,20 +26,22 @@ import {
 import { toast } from "../ui/use-toast";
 
 // Validation Schema
-const contactSchema = z.object({
-  name: z.string().min(2, { message: "الاسم مطلوب على الأقل حرفين" }),
-  phone: z
-    .string()
-    .regex(/^01[0-9]{9}$/, { message: "رقم الهاتف غير صحيح" }),
-  city: z.string().min(2, { message: "المدينة مطلوبة" }),
-  option: z.string().nonempty({ message: "يجب اختيار نوع الطلب" }),
-});
 
+
+
+const ContactForm = ({ onClick, isBooking, setFormValues }: { onClick?: () => void, isBooking?: boolean, setFormValues?: (form: HTMLFormElement) => void }) => {
+  const { t } = useTranslation();
+  const contactSchema = z.object({
+    name: z.string().min(2, { message: t("contactForm.nameValidation") }),
+    phone: z
+      .string()
+      .regex(/^[0-9]{9,11}$/, { message: t("contactForm.phoneValidation")}),
+    city: z.string().min(2, { message: t("contactForm.required")}),
+    option: z.string().nonempty({ message: t("contactForm.required")}),
+  });
 type ContactFormValues = z.infer<typeof contactSchema>;
 
-const ContactForm = ({ onClick }: { onClick?: () => void, isBooking?: boolean }) => {
-  const { t } = useTranslation();
-  const [isLoading, setIsLoading] = useState(false)
+const [isLoading, setIsLoading] = useState(false)
   const formRef = useRef<HTMLFormElement>(null);
 
   const form = useForm<ContactFormValues>({
@@ -53,17 +55,21 @@ const ContactForm = ({ onClick }: { onClick?: () => void, isBooking?: boolean })
   });
 
   // Handle form submission and send email via EmailJS
-  function onSubmit(values: ContactFormValues) {
-    setIsLoading(true)
-    console.log("Form Data:", values);
-
+  function onSubmit() {
+    if (isBooking) {
+      setFormValues(formRef.current)
+      if (onClick) onClick();
+      return
+    }
     if (formRef.current) {
+      setIsLoading(true)
+
       emailjs
         .sendForm(
-          "service_5iac504",    // Replace with your service ID
-          "template_dvaitr8",   // Replace with your template ID
+          "service_5yoabqk",    // Replace with your service ID
+          "template_5yuwlvr",   // Replace with your template ID
           formRef.current,
-          "Wf83WpQq3QNeTk6OT"     // Replace with your public key
+          "VHEeupUp96UPoCWa_"     // Replace with your public key
         )
         .then(
           (result) => {
@@ -71,18 +77,17 @@ const ContactForm = ({ onClick }: { onClick?: () => void, isBooking?: boolean })
             setIsLoading(false)
 
             toast({
-              title: "تم الإرسال بنجاح",
+              title: t("contactForm.success"),
               className: "bg-green-500 text-white",
             });
             form.reset(); // Reset the form fields after successful submission
-            if (onClick) onClick();
           },
           (error) => {
             setIsLoading(false)
 
             console.error("FAILED...", error.text);
             toast({
-              title: "حدث خطأ أثناء الإرسال",
+              title: t("contactForm.error"),
               className: "bg-red-500 text-white",
             });
           }
@@ -95,7 +100,7 @@ const ContactForm = ({ onClick }: { onClick?: () => void, isBooking?: boolean })
       <form
         ref={formRef}
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-2 text-start w-full lg:w-3/4 mx-auto"
+        className={`space-y-2 text-start w-full ${isBooking ? "" : "lg:w-3/4 "}  mx-auto`}
         dir="rtl"
       >
         {/* Name Field */}
@@ -171,12 +176,11 @@ const ContactForm = ({ onClick }: { onClick?: () => void, isBooking?: boolean })
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="option1">{t("contactForm.option1")}</SelectItem>
-                  <SelectItem value="option2">{t("contactForm.option2")}</SelectItem>
-                  <SelectItem value="option3">{t("contactForm.option3")}</SelectItem>
+                  <SelectItem value={t("contactForm.option1")}>{t("contactForm.option1")}</SelectItem>
+                  <SelectItem value={t("contactForm.option2")}>{t("contactForm.option2")}</SelectItem>
+                  <SelectItem value={t("contactForm.option3")}>{t("contactForm.option3")}</SelectItem>
                 </SelectContent>
               </Select>
-              {/* مهم: عشان EmailJS يلقط القيمة */}
               <input type="hidden" name="option" value={field.value} />
               <FormMessage />
             </FormItem>

@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./Layout";
 import ScrollToTopOnRouteChange from "./components/shared/ScrollToTopOnRouteChange";
-import WhatsBtn from "./components/shared/WhatsBtn";
+import WhatsBtn from "./components/shared/FloatingButtons";
 import Loader from "./components/shared/Loader";
 import BlogDetails from "./pages/BlogDetails/Index";
 
