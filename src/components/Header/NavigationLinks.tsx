@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 const NavigationLinks = ({ navigation, onClick }: { navigation: { name: string; href: string; }[], onClick?: () => void }) => {
-    console.log(navigation,"NavigationLinks");
+    console.log(navigation, "NavigationLinks");
     const location = useLocation();
     const navigate = useNavigate();
     const handleNavClick = (e, href) => {
@@ -11,16 +11,25 @@ const NavigationLinks = ({ navigation, onClick }: { navigation: { name: string; 
             const sectionId = href.replace("/#", "");
             if (location.pathname !== "/") {
                 navigate("/", { state: { scrollTo: sectionId } });
+                if (onClick) {
+                    setTimeout(() => onClick(), 400);
+                }
             } else {
                 const section = document.getElementById(sectionId);
                 if (section) {
                     section.scrollIntoView({ behavior: "smooth" });
+                    const onScrollEnd = () => {
+                        if (onClick) onClick();
+                        window.removeEventListener("scrollend", onScrollEnd);
+                    };
+                    window.addEventListener("scrollend", onScrollEnd);
                 }
             }
         } else {
             if (onClick) onClick();
         }
     };
+
     useEffect(() => {
         if (location.state?.scrollTo) {
             const sectionId = location.state.scrollTo;

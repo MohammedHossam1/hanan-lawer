@@ -40,7 +40,7 @@ const Header = () => {
             </nav>
 
             {/* CTA & Mobile Menu */}
-            <div className="flex items-center space-x-4 max-lg:order-3" >
+            <div className="flex items-center lg:space-x-4 max-lg:order-3" >
               {/* contact */}
               <div className="flex items-center gap-4 max-lg:hidden ">
                 <div className="flex items-center gap-x-2 text-sm">

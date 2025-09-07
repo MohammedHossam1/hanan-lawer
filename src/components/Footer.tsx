@@ -113,7 +113,7 @@ const Footer = () => {
             </div>
             <div className="">
               <p className="text-primary-foreground/60 text-sm">{t("footer.bottom.powered")} {" "}
-                <a href="https://qadi-tech.com/home" className="font-bold">El Qadi-tech</a>
+                <a href="https://qadi-tech.com/home" className="font-bold">Qadi-tech</a>
               </p>
             </div>
           </div>
