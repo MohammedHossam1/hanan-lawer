@@ -1,4 +1,3 @@
-"use client";
 
 import {
   Carousel,
@@ -6,28 +5,20 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import { testimonialsItems, testimonialsItemsHe } from "@/data";
+import { ITestimonial } from "@/types/Index";
 import { Quote, Star, UserCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import SectionHeader from "./SectionHeader";
 
-export interface Testimonial {
-  name: string;
-  role: string;
-  content: string;
-  rating: number;
-  avatar: string; 
-  videoUrl?: string; 
-}
 
-const Testimonials = () => {
-  const { t , i18n} = useTranslation();
+
+const Testimonials = ({data}:{data?:ITestimonial[]}) => {
+  const { t } = useTranslation();
 
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
-  const testimonials = i18n.language === "ar" ? testimonialsItems : testimonialsItemsHe;
 
 
 
@@ -56,7 +47,7 @@ const Testimonials = () => {
           opts={{ align: "start", loop: false, direction: "rtl" }}
         >
           <CarouselContent>
-            {testimonials.map((testimonial, index) => (
+            {data.map((testimonial, index) => (
               <CarouselItem
                 key={index}
                 className="md:basis-1/2 lg:basis-1/3"
@@ -68,7 +59,7 @@ const Testimonials = () => {
                         <Quote size={24} />
                       </div>
                       <div className="flex">
-                        {[...Array(testimonial.rating)].map((_, i) => (
+                        {[...Array(testimonial.rate)].map((_, i) => (
                           <Star
                             key={i}
                             className="w-5 h-5 fill-accent text-white"
@@ -78,7 +69,7 @@ const Testimonials = () => {
                     </div>
 
                     <p className="text-muted-foreground mb-4 leading-relaxed">
-                      "{testimonial.content}"
+                      "{testimonial.description}"
                     </p>
 
              

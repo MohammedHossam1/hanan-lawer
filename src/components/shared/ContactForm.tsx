@@ -1,11 +1,10 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
-import { useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -23,25 +22,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { toast } from "../ui/use-toast";
+import { useGetAppointmentsTypes, usePostAppointment } from "@/hooks/fetch-hooks";
+import { toast } from "sonner";
 
 // Validation Schema
 
 
 
 const ContactForm = ({ onClick, isBooking, setFormValues }: { onClick?: () => void, isBooking?: boolean, setFormValues?: (form: HTMLFormElement) => void }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language
+  const { data: appointmentTypes } = useGetAppointmentsTypes(lang);
+  const mutation = usePostAppointment();
+
   const contactSchema = z.object({
     name: z.string().min(2, { message: t("contactForm.nameValidation") }),
     phone: z
       .string()
-      .regex(/^[0-9]{9,11}$/, { message: t("contactForm.phoneValidation")}),
-    city: z.string().min(2, { message: t("contactForm.required")}),
-    option: z.string().nonempty({ message: t("contactForm.required")}),
+      .regex(/^[0-9]{9,11}$/, { message: t("contactForm.phoneValidation") }),
+    city: z.string().min(2, { message: t("contactForm.required") }),
+    appointment_type_id: z.string().nonempty({ message: t("contactForm.required") }),
   });
-type ContactFormValues = z.infer<typeof contactSchema>;
+  type ContactFormValues = z.infer<typeof contactSchema>;
 
-const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const formRef = useRef<HTMLFormElement>(null);
 
   const form = useForm<ContactFormValues>({
@@ -50,7 +54,7 @@ const [isLoading, setIsLoading] = useState(false)
       name: "",
       phone: "",
       city: "",
-      option: "",
+      appointment_type_id: "",
     },
   });
 
@@ -63,35 +67,18 @@ const [isLoading, setIsLoading] = useState(false)
     }
     if (formRef.current) {
       setIsLoading(true)
+      mutation.mutate({
+        ...form.getValues(),
 
-      emailjs
-        .sendForm(
-          "service_5yoabqk",    // Replace with your service ID
-          "template_5yuwlvr",   // Replace with your template ID
-          formRef.current,
-          "VHEeupUp96UPoCWa_"     // Replace with your public key
-        )
-        .then(
-          (result) => {
-            console.log("SUCCESS!", result.text);
+      }
+        , {
+          onSuccess: () => {
             setIsLoading(false)
-
-            toast({
-              title: t("contactForm.success"),
-              className: "bg-green-500 text-white",
-            });
-            form.reset(); // Reset the form fields after successful submission
+            toast.success(t("contactForm.success"));
+            form.reset();
           },
-          (error) => {
-            setIsLoading(false)
+        })
 
-            console.error("FAILED...", error.text);
-            toast({
-              title: t("contactForm.error"),
-              className: "bg-red-500 text-white",
-            });
-          }
-        );
     }
   }
 
@@ -120,7 +107,6 @@ const [isLoading, setIsLoading] = useState(false)
             </FormItem>
           )}
         />
-
         {/* Phone Field */}
         <FormField
           control={form.control}
@@ -138,7 +124,6 @@ const [isLoading, setIsLoading] = useState(false)
             </FormItem>
           )}
         />
-
         {/* City Field */}
         <FormField
           control={form.control}
@@ -156,11 +141,10 @@ const [isLoading, setIsLoading] = useState(false)
             </FormItem>
           )}
         />
-
-        {/* Select Option Field */}
+        {/* Select appointment_type_id Field */}
         <FormField
           control={form.control}
-          name="option"
+          name="appointment_type_id"
           render={({ field }) => (
             <FormItem>
               <Select
@@ -176,20 +160,22 @@ const [isLoading, setIsLoading] = useState(false)
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value={t("contactForm.option1")}>{t("contactForm.option1")}</SelectItem>
-                  <SelectItem value={t("contactForm.option2")}>{t("contactForm.option2")}</SelectItem>
-                  <SelectItem value={t("contactForm.option3")}>{t("contactForm.option3")}</SelectItem>
+                  {appointmentTypes?.data?.map((type) => (
+                    <SelectItem key={type.id} value={String(type.id)}>
+                      {type.name}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
-              <input type="hidden" name="option" value={field.value} />
+              <input type="hidden" name="appointment_type_id" value={field.value} />
               <FormMessage />
             </FormItem>
           )}
         />
 
 
-        <Button type="submit" disabled={isLoading} className="w-full">
-          {!isLoading ? t("contactForm.send") : t("contactForm.loading")}
+        <Button type="submit" isLoading={isLoading} className="w-full">
+          {t("contactForm.send")}
         </Button>
       </form>
     </Form>

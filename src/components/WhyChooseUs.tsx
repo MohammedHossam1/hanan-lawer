@@ -1,38 +1,12 @@
-import { Award, Users, TrendingUp, Shield } from "lucide-react";
-import SectionHeader from "./SectionHeader";
+import { IWhyChooseUs } from "@/types/Index";
 import { useTranslation } from "react-i18next";
+import SectionHeader from "./SectionHeader";
 
-interface Feature {
-  icon: JSX.Element;
-  title: string;
-  description: string;
-}
 
-const WhyChooseUs = () => {
+
+const WhyChooseUs = ({ data }: { data: IWhyChooseUs[] }) => {
   const { t } = useTranslation();
 
-  const features: Feature[] = [
-    {
-      icon: <Award className="w-12 h-12" />,
-      title: t("whyChooseUs.items.0.title"),
-      description: t("whyChooseUs.items.0.description"),
-    },
-    {
-      icon: <Users className="w-12 h-12" />,
-      title: t("whyChooseUs.items.1.title"),
-      description: t("whyChooseUs.items.1.description"),
-    },
-    {
-      icon: <TrendingUp className="w-12 h-12" />,
-      title: t("whyChooseUs.items.2.title"),
-      description: t("whyChooseUs.items.2.description"),
-    },
-    {
-      icon: <Shield className="w-12 h-12" />,
-      title: t("whyChooseUs.items.3.title"),
-      description: t("whyChooseUs.items.3.description"),
-    },
-  ];
 
   return (
     <section id="why-us" className="pt-10 lg:pt-20">
@@ -44,13 +18,19 @@ const WhyChooseUs = () => {
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, index) => (
+          {data?.map((feature, index) => (
             <div
               key={index}
               className="text-center group hover:scale-105 transition-transform duration-300"
             >
-              <div className="text-accent mb-6 flex justify-center group-hover:scale-110 transition-transform">
-                {feature.icon}
+              <div className="size-10 mx-auto my-2">
+                <img
+                  src={feature.image}
+                  alt={feature.title}
+                  width={100}
+                  height={100}
+                  className="w-full "
+                />
               </div>
               <h3 className="text-xl font-bold text-card-foreground mb-4">
                 {feature.title}

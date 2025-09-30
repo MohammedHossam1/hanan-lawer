@@ -1,58 +1,13 @@
 "use client";
-import SectionHeader from "../SectionHeader";
+import { IVideo } from "@/types/Index";
 import { useTranslation } from "react-i18next";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { FaPlay } from "react-icons/fa";
+import SectionHeader from "../SectionHeader";
+import VideoModal from "./VideoModal";
 
-const SuccessStory = ({ thumbnail, videoUrl }: { thumbnail: string; videoUrl: string }) => {
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <div className="relative w-full aspect-[9/16] overflow-hidden rounded-xl cursor-pointer shadow-lg hover:opacity-90 transition">
-          <img
-            src={thumbnail}
-            alt="Success Story"
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-          <div className="absolute top-3 right-3 rounded-full p-2 animate-pulse ">
-            <FaPlay className="text-white size-6" />
-          </div>
-        </div>
-      </DialogTrigger>
-      <DialogContent className="max-w-sm md:max-w-md w-full p-0 overflow-hidden rounded-2xl">
-        <div className="relative w-full aspect-[9/16] h-[90vh] bg-black">
-          <video
-            src={videoUrl}
-            controls
-            autoPlay
-            className="absolute inset-0 w-full h-full object-contain rounded-lg"
-          />
-        </div>
-      </DialogContent>
-    </Dialog>
-  );
-};
 
-export default function SuccessStories() {
+
+export default function SuccessStories({data}:{data:IVideo[]}) {
   const { t } = useTranslation();
-  const videos = [
-    {
-      thumbnail:
-        "https://res.cloudinary.com/dok9ldarj/video/upload/so_3/v1756394344/WhatsApp_Video_2025-08-28_at_15.56.04_2c7ca5da_knvkuh.jpg",
-      videoUrl:
-        "https://res.cloudinary.com/dok9ldarj/video/upload/v1756394344/WhatsApp_Video_2025-08-28_at_15.56.04_2c7ca5da_knvkuh.mp4",
-    },
-    {
-      thumbnail:
-        "https://res.cloudinary.com/dok9ldarj/video/upload/so_3/v1756394650/WhatsApp_Video_2025-08-28_at_15.54.45_a1abb4b7_bszlnn.jpg",
-      videoUrl:
-        "https://res.cloudinary.com/dok9ldarj/video/upload/v1756394650/WhatsApp_Video_2025-08-28_at_15.54.45_a1abb4b7_bszlnn.mp4",
-    },
-  ];
 
   const sectionHeader = {
     subtitle: t("successStories.sectionHeader.subtitle"),
@@ -70,10 +25,9 @@ export default function SuccessStories() {
       />
 
       <div className="flex items-center justify-center gap-5">
-        {videos.map((v, i) => (
+        {data?.map((v, i) => (
           <div className="basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/6"  key={i} >
-
-            <SuccessStory {...v} />
+            <VideoModal {...v} />
           </div>
         ))}
       </div>

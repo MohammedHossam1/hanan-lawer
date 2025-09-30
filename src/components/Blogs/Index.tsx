@@ -1,9 +1,9 @@
-import { BLOGS } from '@/data';
-import BlogCard from './BlogCard';
+import { TArticle } from '@/types/Index';
 import { useTranslation } from 'react-i18next';
 import SectionHeader from '../SectionHeader';
+import BlogCard from './BlogCard';
 
-const Blogs = () => {
+const Blogs = ({data}:{data:TArticle[]}) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language
   const sectionHeader = {
@@ -21,7 +21,7 @@ const Blogs = () => {
         />
 
         <div className="grid gap-6 sm:grid-cols-2">
-          {BLOGS.map((post) => (
+          {data.map((post) => (
             <BlogCard key={post.id} post={post} lang={lang} />
           ))}
         </div>

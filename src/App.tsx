@@ -12,12 +12,19 @@ import Loader from "./components/shared/Loader";
 import BlogDetails from "./pages/BlogDetails/Index";
 
 // Lazy load pages
-const Index = lazy(() => import("./pages/Index"));
+const Index = lazy(() => import("./pages/Home"));
 const Services = lazy(() => import("./components/Services/Services"));
+const FooterLegalPage = lazy(() => import("./pages/FooterPages/index"));
 const About = lazy(() => import("./components/About"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      suspense: true, 
+    } as any,
+  },
+});
 
-const queryClient = new QueryClient();
 
 const App = () => {
   const { i18n } = useTranslation();
@@ -35,7 +42,7 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <ScrollToTopOnRouteChange />
-          <Suspense fallback={<Loader/>}>
+          <Suspense fallback={<Loader />}>
             <Routes>
               <Route path="/" element={<Layout />}>
                 <Route index element={<Index />} />
@@ -43,6 +50,7 @@ const App = () => {
                 <Route path="about" element={<About />} />
                 <Route path="contact" element={<Index />} />
                 <Route path="blogs" element={<Index />} />
+                <Route path="legal/:slug" element={<FooterLegalPage />} />
                 <Route path="blogs/:id" element={<BlogDetails />} />
                 <Route path="*" element={<NotFound />} />
               </Route>
