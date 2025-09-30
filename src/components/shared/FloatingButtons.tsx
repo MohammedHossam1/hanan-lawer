@@ -1,5 +1,7 @@
+import { useGetHomePage } from "@/hooks/fetch-hooks";
 import { motion } from "framer-motion";
-import { FaWhatsapp, FaPhone } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
+import { FaPhone, FaWhatsapp } from "react-icons/fa";
 
 interface FloatingButtonsProps {
   size?: number;
@@ -16,9 +18,13 @@ export default function FloatingButtons({
     "top-right": "top-4 right-4",
     "top-left": "top-4 left-4",
   };
-
-  const whatsappUrl = `https://wa.me/97248877222`;
-  const phoneUrl = `tel:048877222`;
+  const { i18n } = useTranslation();
+  const lang = i18n.language
+  const { data } = useGetHomePage(lang);
+  const phone = data?.data?.settings.contact.mobile
+  const whats = data?.data?.settings.contact.whatsapp
+  const whatsappUrl = `https://wa.me/${whats}`;
+  const phoneUrl = `tel:${phone}`;
 
   return (
     <div className={`fixed z-50 flex flex-col gap-3 ${positions[position]}`}>
@@ -30,7 +36,7 @@ export default function FloatingButtons({
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
       >
-        <FaPhone size={size * 0.4}  className="rotate-90"/>
+        <FaPhone size={size * 0.4} className="rotate-90" />
       </motion.a>
 
       {/* WhatsApp Button */}

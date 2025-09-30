@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
+import { ISettings } from "@/types/Index";
+import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.jpg";
 
-const Footer = () => {
+const Footer = ({ data }: { data: ISettings }) => {
   const { t } = useTranslation();
-
 
   const navigation = [
     { name: t("header.nav.home"), href: "/" },
@@ -18,31 +18,24 @@ const Footer = () => {
   ];
 
 
-  // const services = [
-  //   { name: t("footer.services.items.business"), href: "#" },
-  //   { name: t("footer.services.items.criminal"), href: "#" },
-  //   { name: t("footer.services.items.realEstate"), href: "#" },
-  //   { name: t("footer.services.items.family"), href: "#" },
-  //   { name: t("footer.services.items.consulting"), href: "#" }
-  // ];
 
   const legalPages = [
-    { name: t("footer.legal.privacy"), href: "#" },
-    { name: t("footer.legal.terms"), href: "#" },
-    { name: t("footer.legal.faq"), href: "#" },
-    { name: t("footer.legal.disclaimer"), href: "#" }
+    { name: t("footer.legal.privacy"), href: "/legal/privacy" },
+    { name: t("footer.legal.terms"), href: "/legal/terms" },
+    { name: t("footer.legal.faq"), href: "/legal/faq" },
+    { name: t("footer.legal.disclaimer"), href: "/legal/disclaimer" }
   ];
 
   const socials = [
-    { icon: Facebook, label: t("footer.socials.facebook"), href: "https://www.facebook.com/share/1D19buG1eG/?mibextid=wwXIfr" },
-    { icon: Instagram, label: t("footer.socials.instagram"), href: "https://www.instagram.com/hananakellawoffice" }
+    { icon: Facebook, label: t("footer.socials.facebook"), href: data?.social_media?.facebook },
+    { icon: Instagram, label: t("footer.socials.instagram"), href: data?.social_media?.instagram},
+    { icon: Twitter, label: t("footer.socials.instagram"), href: data?.social_media?.twitter}
   ];
 
   const contacts = [
-    { icon: MapPin, text: t("footer.contact.address") },
-    { icon: Phone, text: t("footer.contact.phone1") },
-    { icon: Phone, text: t("footer.contact.phone2") },
-    { icon: Mail, text: t("footer.contact.email") }
+    { icon: MapPin, text: data?.address},
+    { icon: Phone, text: data?.contact.mobile },
+    { icon: Mail, text: data?.contact.email}
   ];
 
   return (
@@ -64,7 +57,7 @@ const Footer = () => {
 
             <div className="flex gap-3">
               {socials.map(({ icon: Icon, label, href }, i) => (
-                <Button key={i} variant="ghost" size="sm" asChild className="text-primary-foreground hover:text-white hover:bg-primary-foreground/10">
+                <Button key={i} variant="ghost" size="sm"  className="text-primary-foreground hover:text-white hover:bg-primary-foreground/10">
                   <a href={href} aria-label={label} target="_blank">
                     <Icon size={20} />
                   </a>

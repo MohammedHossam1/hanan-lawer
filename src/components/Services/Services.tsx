@@ -1,34 +1,39 @@
 import { Button } from '@/components/ui/button';
-import { servicesItems, servicesItemsHe, testimonialsCta, testimonialsCtaHe } from '@/data';
-import { Briefcase, Home, Scale, Shield, Users } from 'lucide-react';
+import { testimonialsCta, testimonialsCtaHe } from '@/data';
+import { IService } from '@/types/Index';
+import { Briefcase, Home, Loader, Scale, Shield, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SectionHeader from '../SectionHeader';
 import ReservationCalendar from '../shared/Reservation';
 import ServiceDetails from './ServiceDetails';
+import { useGetHomePage } from '@/hooks/fetch-hooks';
 
-const Services = () => {
+const Services = ({ data }: { data?: IService[] }) => {
   const { t, i18n } = useTranslation();
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedService, setSelectedService] = useState<any>(null);
-  const [services, setServices] = useState(servicesItems);
   const [cta, setCta] = useState(testimonialsCta);
-
+  const lang = i18n.language
+  const { data: home, isLoading } = useGetHomePage(lang)
+  useEffect(() => {
+    if (i18n.language === 'ar') {
+      setCta(testimonialsCta);
+    } else {
+      setCta(testimonialsCtaHe);
+    }
+  }, [i18n.language]);
+  // if no data prop is provided, use the home page data
+  const finalData = data ? data : home?.data?.services
   const sectionHeader = {
     subtitle: t('services.sectionHeader.subtitle'),
     title: t('services.sectionHeader.title'),
     description: t('services.sectionHeader.description')
   };
-  useEffect(() => {
-    if (i18n.language === 'ar') {
-      setServices(servicesItems);
-      setCta(testimonialsCta);
-    } else {
-      setServices(servicesItemsHe);
-      setCta(testimonialsCtaHe);
-    }
-  }, [i18n.language]);
   const icons = [<Scale key="scale" />, <Shield key="shield" />, <Home key="home" />, <Users key="users" />, <Briefcase key="briefcase" />];
+  if (isLoading) return <div className="overflow-hidden">
+    <Loader />
+  </div>
 
   return (
     <section className="pt-10 lg:pt-20 bg-background" id='services'>
@@ -43,7 +48,7 @@ const Services = () => {
 
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-5 lg:mb-16">
-          {services.map((service, index) => (
+          {finalData?.map((service, index) => (
             <div
               key={index}
               className="group bg-card rounded-xl p-4 lg:p-8 shadow-card hover:shadow-elegant transition-all duration-300 hover:-translate-y-2 border border-border"
@@ -59,16 +64,14 @@ const Services = () => {
               <p className="text-muted-foreground mb-6 leading-relaxed line-clamp-2">
                 {service.description}
               </p>
-              <button
+              <Button
                 onClick={() => {
                   setSelectedService(service);
                   setOpenDialog(true);
                 }}
-              >
-                <Button variant="ghost" className="text-white hover:text-white bg-foreground hover:bg-accent group-hover:bg-accent group-hover:text-white-foreground">
-                  {t("services.learnMore")}
-                </Button>
-              </button>
+                variant="ghost" className="text-white hover:text-white bg-foreground hover:bg-accent group-hover:bg-accent group-hover:text-white-foreground">
+                {t("services.learnMore")}
+              </Button>
             </div>
           ))}
         </div>

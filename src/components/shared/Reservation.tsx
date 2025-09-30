@@ -1,20 +1,20 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { usePostAppointment } from "@/hooks/fetch-hooks";
+import { AnimatePresence, motion } from "framer-motion";
 import { CalendarIcon } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import ContactForm from "./ContactForm";
-import { AnimatePresence, motion } from "framer-motion";
-import emailjs from "@emailjs/browser";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 
 const ReservationCalendar = ({
   className,
@@ -27,51 +27,33 @@ const ReservationCalendar = ({
   const [openDialog, setOpenDialog] = useState(false);
   const [step, setStep] = useState<"calendar" | "form">("form");
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
-  const [formValues, setFormValues] = useState<HTMLFormElement | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [formValues, setFormValues] = useState<any>(null);
+  const mutation = usePostAppointment();
 
-  function handleReservation() {
-    setIsLoading(true);
-    if (formValues && selectedDate) {
-      const todayOnly = selectedDate.toISOString().split("T")[0]; 
-      const hiddenInput = document.createElement("input");
-      hiddenInput.type = "hidden";
-      hiddenInput.name = "reservation_date";
-      hiddenInput.value = todayOnly;
-      formValues.appendChild(hiddenInput);
-
-      emailjs
-        .sendForm(
-          "service_5yoabqk",
-          "template_12adeom",
-          formValues,
-          "VHEeupUp96UPoCWa_"
-        )
-        .then(
-          (result) => {
-            console.log("SUCCESS!", result.text);
-            setIsLoading(false);
-
-            toast({
-              title: t("contactForm.success"),
-              className: "bg-green-500 text-white",
-            });
-            setStep("form");
-            setOpenDialog(false);
-            formValues.reset();
-          },
-          (error) => {
-            setIsLoading(false);
-            console.error("FAILED...", error.text);
-            toast({
-              title: t("contactForm.error"),
-              className: "bg-red-500 text-white",
-            });
-          }
-        );
-    }
+  // Handle sending contact (reservation)
+  function handleSendContact() {
+    // Merge form values and selectedDate
+    const dataToSend = {
+      ...formValues,
+      reservationDate: selectedDate,
+    };
+    mutation.mutate(dataToSend, { onSuccess: () => {
+      setOpenDialog(false);
+      setStep("form");
+      toast.success(t("contactForm.success"));
+    } });
   }
 
+  // Handler to receive form values from ContactForm
+  function handleSetFormValues(form: HTMLFormElement | null) {
+    if (!form) return;
+    const formData = new FormData(form);
+    const values: Record<string, any> = {};
+    for (const [key, value] of formData.entries()) {
+      values[key] = value;
+    }
+    setFormValues(values);
+  }
 
   return (
     <>
@@ -117,19 +99,18 @@ const ReservationCalendar = ({
                   className="mx-auto mt-4 "
                 />
                 <Button
-                  disabled={isLoading}
+                  isLoading={mutation.isPending}
                   onClick={() => {
                     if (selectedDate) {
-                   
-                      handleReservation();
+                      handleSendContact();
                     }
                   }}
-
                   className="mt-4 w-full"
                 >
-                  {title ? title : isLoading ? t("contactForm.loading") : t("reservationCalendar.confirm")}
+                  {title
+                    ? title
+                    : t("reservationCalendar.confirm")}
                 </Button>
-
               </motion.div>
             ) : (
               <motion.div
@@ -139,7 +120,11 @@ const ReservationCalendar = ({
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <ContactForm onClick={() => setStep("calendar")} isBooking={true} setFormValues={setFormValues} />
+                <ContactForm
+                  onClick={() => setStep("calendar")}
+                  isBooking={true}
+                  setFormValues={handleSetFormValues}
+                />
               </motion.div>
             )}
           </AnimatePresence>

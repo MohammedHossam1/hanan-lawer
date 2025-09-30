@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 const NavigationLinks = ({ navigation, onClick }: { navigation: { name: string; href: string; }[], onClick?: () => void }) => {
-    console.log(navigation, "NavigationLinks");
     const location = useLocation();
     const navigate = useNavigate();
     const handleNavClick = (e, href) => {

@@ -1,12 +1,10 @@
-import heroImage from '@/assets/hero.jpg';
-import heroImageRemoved from '@/assets/hero-removed.png';
 import { useTranslation } from 'react-i18next';
 import ReservationCalendar from './shared/Reservation';
+import { ISlider } from '@/types/Index';
 
-const Hero = () => {
-
+const Hero = ({ data }:{ data: ISlider}) => {
   const { t } = useTranslation();
-  const imageSec = window.innerWidth < 1024 ? heroImageRemoved : heroImage
+  const imageSec = data?.image
   return (
     <section className="md:min-h-[30vh] flex flex-col items-end justify-end  lg:h-[calc(100dvh-64px)] bg-gradient-hero relative overflow-hidden ">
       {/* Background Patterns */}
@@ -20,15 +18,19 @@ const Hero = () => {
           <div className="space-y-2   lg:space-y-8 duration-700 ">
             <div className="space-y-2" >
               <h1 className="  max-xxs:text-2xl  text-3xl  text-nowrap md:text-6xl xl:text-7xl font-bold text-primary-foreground leading-tight  lg:flex lg:flex-col gap-2 max-lg:items-center">
-                {t('hero.subtitle1')}<br className='lg:hidden' />
+                {/* {t('hero.subtitle1')} */}
+                {/* first two words */}
+                {data?.title.split(' ').slice(0, 2).join(' ')}
+                <br className='lg:hidden' />
                 <span className=" text-white">
-                  {" "} {t('hero.subtitle2')}
+                  {" "}    {data?.title.split(' ').slice(2).join(' ')}
                 </span>
               </h1>
 
             </div>
             <p className="text-base lg:text-xl text-primary-foreground/80 leading-relaxed max-w-xl">
-              {t('hero.title')}
+              {/* {t('hero.title')} */}
+              {data?.description}
             </p>
             <div className="md:hidden flex flex-col sm:flex-row gap-4 relative z-10">
               <ReservationCalendar />
@@ -61,7 +63,7 @@ const Hero = () => {
                   </div>
                 </div>
               </div>
-          
+
 
               {/* Decorative Elements */}
               <div className="absolute -bottom-8 -left-8 w-32 h-32 border-2 border-accent/30 rounded-full"></div>

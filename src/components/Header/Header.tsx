@@ -1,3 +1,4 @@
+import { ISettings } from "@/types/Index";
 import { AnimatePresence, motion } from "framer-motion";
 import { Mail, Menu, Phone, X } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -7,7 +8,7 @@ import logo from "../../assets/logo.jpg";
 import LanguageSwitcher from "../shared/LanguageSwitcher";
 import NavigationLinks from "./NavigationLinks";
 
-const Header = () => {
+const Header = ({ data }: { data: ISettings }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t } = useTranslation();
 
@@ -19,8 +20,7 @@ const Header = () => {
     { name: t("header.nav.testimonials"), href: "/#testimonials" },
     { name: t("header.nav.blogs"), href: "/#blogs" },
     { name: t("header.nav.contact"), href: "/#contact" },
-  ], [t]); 
-
+  ], [t]);
 
 
   return (
@@ -28,7 +28,6 @@ const Header = () => {
       <div className="fixed top-0 w-full z-50 bg-primary backdrop-blur-sm border-b border-primary-dark">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex items-center justify-between h-16">
-
             {/* Logo */}
             <Link to="/" className="flex items-center gap-x-3 rounded-full max-lg:order-1" >
               <img src={logo} alt="logo" className="size-12 rounded-full" />
@@ -43,14 +42,14 @@ const Header = () => {
             <div className="flex items-center lg:space-x-4 max-lg:order-3" >
               {/* contact */}
               <div className="flex items-center gap-4 max-lg:hidden ">
-                <div className="flex items-center gap-x-2 text-sm">
+                <Link to={`tel:${data?.contact.mobile}`} className="flex items-center gap-x-2 text-sm">
                   <Phone className="text-white w-4 h-4" />
-                  <span className="text-white">{t("header.phone")}</span>
-                </div>
-                <div className="flex items-center gap-x-2 text-sm">
+                  <span className="text-white">{data?.contact.mobile}</span>
+                </Link>
+                <Link to={`mailto:${data?.contact.email}`} className="flex items-center gap-x-2 text-sm">
                   <Mail className="text-white w-4 h-4" />
-                  <span className="text-white">{t("header.email")}</span>
-                </div>
+                  <span className="text-white">{data?.contact.email}</span>
+                </Link>
               </div>
               {/* Mobile menu button */}
               <div className="flex items-center gap-x-2 ">
@@ -89,12 +88,13 @@ const Header = () => {
                   <div className="px-4 pt-4 border-t border-border mt-2">
                     <div className="text-center">
                       <span className="text-card-foreground text-center">
-                        {t("header.phone")}
+                        {data?.contact.mobile}
+
                       </span>
                     </div>
                     <div className="flex items-center gap-x-2 mt-2">
                       <span className="text-card-foreground">
-                        {t("header.email")}
+                        {data?.contact.email}
                       </span>
                     </div>
                   </div>
