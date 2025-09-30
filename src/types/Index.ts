@@ -38,9 +38,9 @@ export interface IHero {
 export interface IAbout {
   id: number;
   description: string;
-  fields: string[];
+  features: string[];
   lang: string;
-  image_url: string;
+  image: string;
 }
 
 export interface IVideo {
@@ -153,7 +153,7 @@ export type HomePageData = {
   products: Product[];
   sliders: IHeroSlider[];
   site_settings: { phone: string; email: string; address: string };
-  about_office: { title: string; description: string; image: string; features: string[] };
+  about_office: IAbout;
   services: IService[];
   videos: IVideo[];
   sucess_stories: IVideo[];

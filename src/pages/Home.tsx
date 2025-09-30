@@ -19,7 +19,7 @@ const Home = () => {
   return (
     <main className='overflow-x-hidden min-h-[clac(100dvh-64px)]'>
       <Hero data={data?.data?.sliders[0]} />
-      <About isPage={false} data={data?.data.about_office[0]}/>
+      <About isPage={false} data={data?.data.about_office}/>
       <Services data={data?.data.services}/>
       <MinutesWithHanan data={data?.data.videos}/>
       <WhyChooseUs data={data?.data.why_choose_us}/>
