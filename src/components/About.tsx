@@ -1,6 +1,5 @@
-import { useTranslation } from "react-i18next";
-import aboutImg from "../assets/about.jpg";
 import { IAbout } from "@/types/Index";
+import { useTranslation } from "react-i18next";
 
 const About = ({ isPage = true, data }: { isPage?: boolean, data?: IAbout }) => {
   const { t } = useTranslation();
@@ -19,21 +18,22 @@ const About = ({ isPage = true, data }: { isPage?: boolean, data?: IAbout }) => 
             </p>
           </div>
 
-          <div className="space-y-4">
+          {data?.features?.length > 0 && <div className="space-y-4">
             <h3 className="text-lg lg:text-2xl font-semibold text-accent">
               {t("about.specialties_title")}
             </h3>
             <ul className="space-y-2 list-disc list-inside text-muted-foreground">
-              {data?.fields?.map((item, idx) => (
+              {data?.features?.map((item, idx) => (
                 <li key={idx}>{item}</li>
               ))}
             </ul>
           </div>
+          }
         </div>
 
         <div>
           <img
-            src={aboutImg}
+            src={data.image}
             alt="Office"
             className="rounded-xl shadow-lg object-cover w-full"
           />
