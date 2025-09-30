@@ -1,9 +1,11 @@
-import { IAbout } from "@/types/Index";
+import { useGetHomePage } from "@/hooks/fetch-hooks";
 import { useTranslation } from "react-i18next";
 
-const About = ({ isPage = true, data }: { isPage?: boolean, data?: IAbout }) => {
-  const { t } = useTranslation();
-  if (!data) return null
+const About = ({ isPage = true }: { isPage?: boolean }) => {
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language
+  const { data } = useGetHomePage(lang);
+  const finalData = data?.data?.about_office
   return (
     <section className={`pt-10 max-lg:pb-5 lg:pt-20 relative overflow-hidden ${isPage ? " min-h-[calc(100dvh-64px)]" : ""}`}>
       <div className="container mx-auto px-4 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -14,17 +16,17 @@ const About = ({ isPage = true, data }: { isPage?: boolean, data?: IAbout }) => 
 
             </h2>
             <p className="text-base lg:text-xl text-muted-foreground leading-relaxed lg:w-5/6">
-              {data.description}
+              {finalData.description}
             </p>
           </div>
 
-          {data?.features?.length > 0 && <div className="space-y-4">
+          {finalData?.features?.length > 0 && <div className="space-y-4">
             <h3 className="text-lg lg:text-2xl font-semibold text-accent">
               {t("about.specialties_title")}
             </h3>
             <ul className="space-y-2 list-disc list-inside text-muted-foreground">
-              {data?.features?.map((item, idx) => (
-                <li key={idx}>{item}</li>
+              {finalData?.features?.map((item, idx) => (
+                item && <li key={idx}>{item}</li>
               ))}
             </ul>
           </div>
@@ -33,7 +35,7 @@ const About = ({ isPage = true, data }: { isPage?: boolean, data?: IAbout }) => 
 
         <div>
           <img
-            src={data.image}
+            src={finalData.image}
             alt="Office"
             className="rounded-xl shadow-lg object-cover w-full"
           />

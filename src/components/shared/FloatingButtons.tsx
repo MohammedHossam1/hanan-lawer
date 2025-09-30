@@ -1,6 +1,5 @@
 import { useGetHomePage } from "@/hooks/fetch-hooks";
 import { motion } from "framer-motion";
-import { useTranslation } from "react-i18next";
 import { FaPhone, FaWhatsapp } from "react-icons/fa";
 
 interface FloatingButtonsProps {
@@ -18,9 +17,7 @@ export default function FloatingButtons({
     "top-right": "top-4 right-4",
     "top-left": "top-4 left-4",
   };
-  const { i18n } = useTranslation();
-  const lang = i18n.language
-  const { data } = useGetHomePage(lang);
+  const { data } = useGetHomePage("ar");
   const phone = data?.data?.settings.contact.mobile
   const whats = data?.data?.settings.contact.whatsapp
   const whatsappUrl = `https://wa.me/${whats}`;
