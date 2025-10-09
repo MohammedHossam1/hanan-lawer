@@ -5,7 +5,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { FaPlay } from "react-icons/fa";
-const VideoModal = ({ thumbnail, path }: { thumbnail?: string; path: string }) => {
+const VideoModal = ({ thumbnail, path, url }: { thumbnail?: string; path: string, url?: string }) => {
 
     return (
         <Dialog>
@@ -16,7 +16,7 @@ const VideoModal = ({ thumbnail, path }: { thumbnail?: string; path: string }) =
                         alt="Success Story"
                         className="absolute inset-0 w-full h-full object-cover"
                     /> :
-                        <video src={path} />
+                        <video src={path || url} />
                     }
                     <div className="absolute top-3 right-3 rounded-full p-2 animate-pulse z-2 ">
                         <FaPlay className="text-white size-6" />
@@ -28,7 +28,7 @@ const VideoModal = ({ thumbnail, path }: { thumbnail?: string; path: string }) =
             <DialogContent className="max-w-sm md:max-w-md w-full p-0 overflow-hidden rounded-2xl">
                 <div className="relative w-full aspect-[9/16] h-[90vh] bg-black">
                     <video
-                        src={path}
+                        src={path || url}
                         controls
                         autoPlay
                         className="absolute inset-0 w-full h-full object-contain rounded-lg"
