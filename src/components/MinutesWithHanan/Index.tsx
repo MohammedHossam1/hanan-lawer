@@ -46,7 +46,7 @@ export default function MinutesWithHanan({ data }: { data: IVideo[] }) {
 
         <CarouselContent>
           {data?.map((v, i) => (
-            <CarouselItem className="basis-1/3 md:basis-1/5 lg:basis-1/6" key={i}
+            <CarouselItem className="basis-1/3 md:basis-1/5 lg:basis-1/6 pb-4" key={i}
             >
               <div className=""  >
                 <VideoModal {...v} />
