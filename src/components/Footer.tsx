@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { ISettings } from "@/types/Index";
 import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -28,14 +27,14 @@ const Footer = ({ data }: { data: ISettings }) => {
 
   const socials = [
     { icon: Facebook, label: t("footer.socials.facebook"), href: data?.social_media?.facebook },
-    { icon: Instagram, label: t("footer.socials.instagram"), href: data?.social_media?.instagram},
-    { icon: Twitter, label: t("footer.socials.instagram"), href: data?.social_media?.twitter}
+    { icon: Instagram, label: t("footer.socials.instagram"), href: data?.social_media?.instagram },
+    { icon: Twitter, label: t("footer.socials.instagram"), href: data?.social_media?.twitter }
   ];
-
+  console.log(data)
   const contacts = [
-    { icon: MapPin, text: data?.address},
+    { icon: MapPin, text: data?.address },
     { icon: Phone, text: data?.contact.mobile },
-    { icon: Mail, text: data?.contact.email}
+    { icon: Mail, text: data?.contact.email }
   ];
 
   return (
@@ -57,11 +56,10 @@ const Footer = ({ data }: { data: ISettings }) => {
 
             <div className="flex gap-3">
               {socials.map(({ icon: Icon, label, href }, i) => (
-                <Button key={i} variant="ghost" size="sm"  className="text-primary-foreground hover:text-white hover:bg-primary-foreground/10">
-                  <a href={href} aria-label={label} target="_blank">
-                    <Icon size={20} />
-                  </a>
-                </Button>
+                href &&
+                <a href={href} key={i} aria-label={label} target="_blank" className="text-primary-foreground hover:text-white hover:bg-primary-foreground/10 p-2 rounded-md">
+                  <Icon size={20} />
+                </a>
               ))}
             </div>
           </div>

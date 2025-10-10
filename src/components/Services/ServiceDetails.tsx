@@ -31,10 +31,10 @@ const ServiceDetails = ({ openDialog = true, setOpenDialog, service }: { openDia
                             <div className="relative lg:p-4  xl:p-8 xl:rounded-2xl z-10  ">
                                 <h1 className="text-xl lg:text-3xl font-bold mb-4 text-subtle">{service.title}</h1>
                                 <p className="text-muted-foreground mb-6">{service.description}</p>
-                                <h2 className="text-xl font-semibold mb-4 text-color-main">{t("services.features")} :</h2>
+                                {service?.features?.length > 0 && <h2 className="text-xl font-semibold mb-4 text-color-main">{t("services.features")} :</h2>}
                                 <ul className="list-disc list-inside space-y-2 ">
                                     {service.features.map((f: string, idx: number) => (
-                                        <li key={idx} className="text-card-foreground">
+                                        f && <li key={idx} className="text-card-foreground">
                                             {f}
                                         </li>
                                     ))}

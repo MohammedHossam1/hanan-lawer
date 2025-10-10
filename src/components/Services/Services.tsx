@@ -1,13 +1,13 @@
 import { Button } from '@/components/ui/button';
 import { testimonialsCta, testimonialsCtaHe } from '@/data';
+import { useGetHomePage } from '@/hooks/fetch-hooks';
 import { IService } from '@/types/Index';
-import { Briefcase, Home, Loader, Scale, Shield, Users } from 'lucide-react';
+import { Loader } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SectionHeader from '../SectionHeader';
 import ReservationCalendar from '../shared/Reservation';
 import ServiceDetails from './ServiceDetails';
-import { useGetHomePage } from '@/hooks/fetch-hooks';
 
 const Services = ({ data }: { data?: IService[] }) => {
   const { t, i18n } = useTranslation();
@@ -30,7 +30,6 @@ const Services = ({ data }: { data?: IService[] }) => {
     title: t('services.sectionHeader.title'),
     description: t('services.sectionHeader.description')
   };
-  const icons = [<Scale key="scale" />, <Shield key="shield" />, <Home key="home" />, <Users key="users" />, <Briefcase key="briefcase" />];
   if (isLoading) return <div className="overflow-hidden">
     <Loader />
   </div>
@@ -54,7 +53,7 @@ const Services = ({ data }: { data?: IService[] }) => {
               className="group bg-card rounded-xl p-4 lg:p-8 shadow-card hover:shadow-elegant transition-all duration-300 hover:-translate-y-2 border border-border"
             >
               <div className="text-accent mb-6 ">
-                {icons[index]}
+                <img src={service.icon} alt={service.title}  className='size-12'/>
               </div>
 
               <h3 className=" text-2xl font-bold text-card-foreground mb-4">
