@@ -24,17 +24,15 @@ import {
 } from "@/components/ui/select";
 import { useGetAppointmentsTypes, usePostAppointment } from "@/hooks/fetch-hooks";
 import { toast } from "sonner";
+import { CalendarDialog } from "./CalendarDialog";
 
-// Validation Schema
-
-
-
-const ContactForm = ({ onClick, isBooking, setFormValues }: { onClick?: () => void, isBooking?: boolean, setFormValues?: (form: HTMLFormElement) => void }) => {
+const ContactForm = ({isBooking}: {isBooking?: boolean}) => {
   const { t, i18n } = useTranslation();
-  const lang = i18n.language
+  const lang = i18n.language;
   const { data: appointmentTypes } = useGetAppointmentsTypes(lang);
   const mutation = usePostAppointment();
 
+  // ✅ Schema includes date
   const contactSchema = z.object({
     name: z.string().min(2, { message: t("contactForm.nameValidation") }),
     phone: z
@@ -42,10 +40,11 @@ const ContactForm = ({ onClick, isBooking, setFormValues }: { onClick?: () => vo
       .regex(/^[0-9]{9,11}$/, { message: t("contactForm.phoneValidation") }),
     city: z.string().min(2, { message: t("contactForm.required") }),
     appointment_type_id: z.string().nonempty({ message: t("contactForm.required") }),
+    date: z.date({ required_error: t("contactForm.required") }),
   });
   type ContactFormValues = z.infer<typeof contactSchema>;
 
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
   const form = useForm<ContactFormValues>({
@@ -55,31 +54,22 @@ const ContactForm = ({ onClick, isBooking, setFormValues }: { onClick?: () => vo
       phone: "",
       city: "",
       appointment_type_id: "",
+      date: undefined,
     },
   });
 
-  // Handle form submission and send email via EmailJS
-  function onSubmit() {
-    if (isBooking) {
-      setFormValues(formRef.current)
-      if (onClick) onClick();
-      return
-    }
-    if (formRef.current) {
-      setIsLoading(true)
-      mutation.mutate({
-        ...form.getValues(),
+  // ✅ submit handler
+  function onSubmit(values: ContactFormValues) {
+   
 
-      }
-        , {
-          onSuccess: () => {
-            setIsLoading(false)
-            toast.success(t("contactForm.success"));
-            form.reset();
-          },
-        })
-
-    }
+    setIsLoading(true);
+    mutation.mutate(values, {
+      onSuccess: () => {
+        setIsLoading(false);
+        toast.success(t("contactForm.success"));
+        form.reset();
+      },
+    });
   }
 
   return (
@@ -87,7 +77,7 @@ const ContactForm = ({ onClick, isBooking, setFormValues }: { onClick?: () => vo
       <form
         ref={formRef}
         onSubmit={form.handleSubmit(onSubmit)}
-        className={`space-y-2 text-start w-full ${isBooking ? "" : "lg:w-3/4 "}  mx-auto`}
+        className={`space-y-2 text-start w-full ${isBooking ? "" : "lg:w-3/4"} mx-auto`}
         dir="rtl"
       >
         {/* Name Field */}
@@ -103,10 +93,11 @@ const ContactForm = ({ onClick, isBooking, setFormValues }: { onClick?: () => vo
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="" />
+              <FormMessage />
             </FormItem>
           )}
         />
+
         {/* Phone Field */}
         <FormField
           control={form.control}
@@ -124,6 +115,7 @@ const ContactForm = ({ onClick, isBooking, setFormValues }: { onClick?: () => vo
             </FormItem>
           )}
         />
+
         {/* City Field */}
         <FormField
           control={form.control}
@@ -141,7 +133,8 @@ const ContactForm = ({ onClick, isBooking, setFormValues }: { onClick?: () => vo
             </FormItem>
           )}
         />
-        {/* Select appointment_type_id Field */}
+
+        {/* Select appointment_type_id */}
         <FormField
           control={form.control}
           name="appointment_type_id"
@@ -149,9 +142,7 @@ const ContactForm = ({ onClick, isBooking, setFormValues }: { onClick?: () => vo
             <FormItem>
               <Select
                 dir="rtl"
-                onValueChange={(val) => {
-                  field.onChange(val);
-                }}
+                onValueChange={(val) => field.onChange(val)}
                 defaultValue={field.value}
               >
                 <FormControl>
@@ -167,12 +158,25 @@ const ContactForm = ({ onClick, isBooking, setFormValues }: { onClick?: () => vo
                   ))}
                 </SelectContent>
               </Select>
-              <input type="hidden" name="appointment_type_id" value={field.value} />
               <FormMessage />
             </FormItem>
           )}
         />
 
+        {/* ✅ Date Picker Popup */}
+        <FormField
+          control={form.control}
+          name="date"
+          render={({ field }) => (
+            <FormItem className="text-center">
+              <CalendarDialog
+                selectedDate={field.value}
+                onDateSelect={(date) => field.onChange(date)}
+              />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <Button type="submit" isLoading={isLoading} className="w-full">
           {t("contactForm.send")}

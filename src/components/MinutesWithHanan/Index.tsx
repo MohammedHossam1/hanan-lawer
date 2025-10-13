@@ -8,6 +8,7 @@ import { IVideo } from "@/types/Index";
 
 
 
+
 export default function MinutesWithHanan({ data }: { data: IVideo[] }) {
   const { t } = useTranslation();
   const [api, setApi] = useState<CarouselApi>();
@@ -23,7 +24,6 @@ export default function MinutesWithHanan({ data }: { data: IVideo[] }) {
       setCurrent(api.selectedScrollSnap());
     });
   }, [api]);
-  console.log(data)
   if (!data || data.length < 1) return null
   const sectionHeader = {
     subtitle: t("minutesWithHanan.sectionHeader.subtitle"),
@@ -39,6 +39,8 @@ export default function MinutesWithHanan({ data }: { data: IVideo[] }) {
         subTitle={sectionHeader.subtitle}
         desc={sectionHeader.description}
       />
+    
+
       <Carousel
         setApi={setApi}
         opts={{ align: "start", loop: false, direction: "rtl" }}

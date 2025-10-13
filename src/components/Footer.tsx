@@ -30,10 +30,10 @@ const Footer = ({ data }: { data: ISettings }) => {
     { icon: Instagram, label: t("footer.socials.instagram"), href: data?.social_media?.instagram },
     { icon: Twitter, label: t("footer.socials.instagram"), href: data?.social_media?.twitter }
   ];
-  console.log(data)
   const contacts = [
     { icon: MapPin, text: data?.address },
     { icon: Phone, text: data?.contact.mobile },
+    { icon: Phone, text: data?.contact.whatsapp },
     { icon: Mail, text: data?.contact.email }
   ];
 
@@ -47,7 +47,7 @@ const Footer = ({ data }: { data: ISettings }) => {
             <div className="mb-6">
               {/* Logo */}
               <Link to="/" className="flex items-center gap-x-3 rounded-full" >
-                <img src={logo} alt="logo" className="w-24 rounded-full" />
+                <img src={data?.logo || logo} alt="logo" className="w-24 rounded-full" />
               </Link>
 
             </div>
@@ -82,7 +82,7 @@ const Footer = ({ data }: { data: ISettings }) => {
             <h3 className="text-xl font-bold mb-6">{t("footer.contact.title")}</h3>
             <div className="space-y-4">
               {contacts.map(({ icon: Icon, text }, i) => (
-                <div key={i} className="flex items-start gap-x-3">
+                text && <div key={i} className="flex items-start gap-x-3">
                   <Icon className="w-5 h-5 text-white mt-1 flex-shrink-0" />
                   <p className="text-primary-foreground/80">{text}</p>
                 </div>

@@ -3,7 +3,7 @@
 import ContactForm from "./shared/ContactForm";
 import { useTranslation } from "react-i18next";
 
-const CallToAction = () => {
+const CallToAction = ({exp}: {exp: number}) => {
   const { t } = useTranslation();
 
   return (
@@ -39,7 +39,7 @@ const CallToAction = () => {
               <div className="text-primary-foreground/80">{t("callToAction.stats.cases_desc")}</div>
             </div>
             <div className="space-y-2">
-              <div className="text-3xl font-bold text-white">{"10+"}</div>
+              <div className="text-3xl font-bold text-white">{exp}{"+"}</div>
               <div className="text-primary-foreground/80">{t("callToAction.stats.experience_desc")}</div>
             </div>
           </div>

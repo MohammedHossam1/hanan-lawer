@@ -18,8 +18,8 @@ const Home = () => {
 
   return (
     <main className='overflow-x-hidden min-h-[clac(100dvh-64px)]'>
-      <Hero data={data?.data?.sliders[0]} />
-      <About isPage={false} data={data?.data.about_office}/>
+      <Hero data={data?.data?.sliders[0]} exp={data?.data?.settings?.years_of_experience} />
+      <About isPage={false} />
       <Services data={data?.data.services}/>
       <MinutesWithHanan data={data?.data.videos}/>
       <WhyChooseUs data={data?.data.why_choose_us}/>
@@ -27,7 +27,7 @@ const Home = () => {
       <HowWeWork data={data?.data.how_we_works}/>
       <SuccessStories data={data?.data.sucess_stories}/>
       <Blogs data={data?.data.articles}/>
-      <CallToAction />
+      <CallToAction exp={data?.data?.settings?.years_of_experience}/>
     </main>
 
   );

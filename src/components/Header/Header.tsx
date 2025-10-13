@@ -4,11 +4,11 @@ import { Mail, Menu, Phone, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.jpg";
+import logoPlaceholder from "../../assets/logo.jpg";
 import LanguageSwitcher from "../shared/LanguageSwitcher";
 import NavigationLinks from "./NavigationLinks";
 
-const Header = ({ data }: { data: ISettings }) => {
+const Header = ({ data }: { data: ISettings}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t } = useTranslation();
 
@@ -24,13 +24,13 @@ const Header = ({ data }: { data: ISettings }) => {
 
 
   return (
-    <header className="h-[64px]">
-      <div className="fixed top-0 w-full z-50 bg-primary backdrop-blur-sm border-b border-primary-dark">
+    <header className="h-[64px] fixed top-0 w-full z-50 bg-primary backdrop-blur-sm border-b border-primary-dark">
+      <div className="">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-x-3 rounded-full max-lg:order-1" >
-              <img src={logo} alt="logo" className="size-12 rounded-full" />
+              <img src={data?.logo || logoPlaceholder} alt="logo" className="size-12 rounded-full" />
             </Link>
 
             {/* Desktop Navigation */}

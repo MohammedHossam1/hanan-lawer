@@ -35,7 +35,7 @@ const Services = ({ data }: { data?: IService[] }) => {
   </div>
 
   return (
-    <section className="pt-10 lg:pt-20 bg-background" id='services'>
+    <section className="pt-10 lg:pt-32 bg-background" id='services'>
       <div className="container mx-auto px-4 lg:px-8">
 
         {/* Section Header */}

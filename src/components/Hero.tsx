@@ -2,11 +2,11 @@ import { useTranslation } from 'react-i18next';
 import ReservationCalendar from './shared/Reservation';
 import { ISlider } from '@/types/Index';
 
-const Hero = ({ data }:{ data: ISlider}) => {
+const Hero = ({ data, exp }: { data: ISlider, exp: number }) => {
   const { t } = useTranslation();
   const imageSec = data?.image
   return (
-    <section className="md:min-h-[30vh] flex flex-col items-end justify-end  lg:h-[calc(100dvh-64px)] bg-gradient-hero relative overflow-hidden ">
+    <section className="md:min-h-[30vh] flex flex-col items-end justify-end  lg:h-[calc(100dvh)] bg-red-300 bg-gradient-hero relative overflow-hidden ">
       {/* Background Patterns */}
       <div className="absolute inset-0 bg-gradient-subtle"></div>
       <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-accent/5 rounded-full blur-3xl"></div>
@@ -58,7 +58,7 @@ const Hero = ({ data }:{ data: ISlider}) => {
               <div className="absolute max-lg:hidden -top-4 -right-4 z-20 ">
                 <div className="bg-accent text-white-foreground px-6 py-3 rounded-full shadow-elegant">
                   <div className="text-center text-white">
-                    <div className="font-bold  text-lg">10+</div>
+                    <div className="font-bold  text-lg">{exp}+</div>
                     <div className="text-sm">{t('hero.experience')}</div>
                   </div>
                 </div>
