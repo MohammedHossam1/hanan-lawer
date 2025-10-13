@@ -6,7 +6,7 @@ const Hero = ({ data, exp }: { data: ISlider, exp: number }) => {
   const { t } = useTranslation();
   const imageSec = data?.image
   return (
-    <section className="md:min-h-[30vh] flex flex-col items-end justify-end  lg:h-[calc(100dvh)] bg-red-300 bg-gradient-hero relative overflow-hidden ">
+    <section className="min-h-[30vh] pt-20 pb-10 flex flex-col items-end justify-end  lg:h-[calc(100dvh)] bg-red-300 bg-gradient-hero relative overflow-hidden ">
       {/* Background Patterns */}
       <div className="absolute inset-0 bg-gradient-subtle"></div>
       <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-accent/5 rounded-full blur-3xl"></div>
@@ -15,7 +15,7 @@ const Hero = ({ data, exp }: { data: ISlider, exp: number }) => {
       <div className="container mx-auto px-4 lg:px-8 lg:pt-8 lg:pb-1 ">
         <div className="grid grid-cols-2 gap-2 lg:gap-12 items-center  lg:min-h-[80vh]">
           {/* Left Content */}
-          <div className="space-y-2   lg:space-y-8 duration-700 ">
+          <div className="space-y-2   lg:space-y-8 duration-700 relative z-10">
             <div className="space-y-2" >
               <h1 className="  max-xxs:text-2xl  text-3xl  text-nowrap md:text-6xl xl:text-7xl font-bold text-primary-foreground leading-tight  lg:flex lg:flex-col gap-2 max-lg:items-center">
                 {/* {t('hero.subtitle1')} */}
@@ -43,14 +43,14 @@ const Hero = ({ data, exp }: { data: ISlider, exp: number }) => {
           </div>
 
           {/* Right Content - Hero Image */}
-          <div className="relative duration-700 delay-200 max-lg:mt-5 ">
+          <div className="relative duration-700 delay-200 max-lg:mt-5  ">
             <div className="relative max-xl:flex flex-col  gap-2 ">
               {/* Main Image */}
-              <div className="relative z-10 h-full">
+              <div className="relative z-9 h-full">
                 <img
                   src={imageSec}
                   alt="Professional Legal Consultant"
-                  className="w-full lg:max-w-lg lg:max-h-lg lg:h-[450px] md:h-full object-top object-contain lg:object-cover max-lg:ms-auto lg:mx-auto lg:rounded-2xl lg:shadow-glow "
+                  className="w-full lg:max-w-lg rounded-lg lg:max-h-lg lg:h-[450px] md:h-full object-top object-contain lg:object-cover max-lg:ms-auto lg:mx-auto lg:rounded-2xl lg:shadow-glow "
                 />
               </div>
 

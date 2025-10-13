@@ -13,7 +13,7 @@ export default function BlogDetails() {
 
 
     return (
-        <article className="container mx-auto p-4 lg:p-12 bg-white rounded-2xl ">
+        <article className="container mx-auto p-4 py-32 bg-white rounded-2xl ">
             <header className="mb-10 border-b pb-6">
                 <h1 className="text-3xl lg:text-5xl font-extrabold text-white bg-accent/90 p-2 w-fit mb-3">
                     {blog.title}
