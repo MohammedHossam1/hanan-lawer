@@ -1,20 +1,34 @@
-"use client";
-import { IVideo } from "@/types/Index";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import SectionHeader from "../SectionHeader";
-import VideoModal from "./VideoModal";
+import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "../ui/carousel";
+import VideoModal from "../SuccessStories/VideoModal";
+import { IVideo } from "@/types/Index";
 
 
 
-export default function SuccessStories({data}:{data:IVideo[]}) {
+
+export default function SuccessStories({ data }: { data: IVideo[] }) {
   const { t } = useTranslation();
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
 
+
+  useEffect(() => {
+    if (!api) return;
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap());
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+  if (!data || data.length < 1) return null
   const sectionHeader = {
     subtitle: t("successStories.sectionHeader.subtitle"),
     title: t("successStories.sectionHeader.title"),
     description: t("successStories.sectionHeader.description"),
   };
-
   return (
     <section className="container mx-auto px-4 lg:px-8 pt-10">
       {/* Section Header */}
@@ -23,15 +37,36 @@ export default function SuccessStories({data}:{data:IVideo[]}) {
         subTitle={sectionHeader.subtitle}
         desc={sectionHeader.description}
       />
+    
 
-      <div className="flex items-center justify-center gap-5">
-        {data?.map((v, i) => (
-          <div className="basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/6"  key={i} >
-            <VideoModal {...v} />
-          </div>
+      <Carousel
+        setApi={setApi}
+        opts={{ align: "start", loop: false, direction: "rtl" }}
+      >
+
+        <CarouselContent>
+          {data?.map((v, i) => (
+            <CarouselItem className="basis-1/3 md:basis-1/5 lg:basis-1/6 pb-4" key={i}
+            >
+              <div className=""  >
+                <VideoModal {...v} />
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+      {/* Dots for mobile */}
+      <div className="flex justify-center gap-2 mt-6">
+        {Array.from({ length: count }).map((_, i) => (
+          <button
+            key={i}
+            title="Select slide"
+            onClick={() => api?.scrollTo(i)}
+            className={`h-2 w-2 rounded-full transition-colors ${i === current ? "bg-accent" : "bg-muted"
+              }`}
+          />
         ))}
       </div>
-
     </section>
   );
 }

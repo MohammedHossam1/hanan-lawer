@@ -19,7 +19,7 @@ const VideoModal = ({ thumbnail, path, url }: { thumbnail?: string; path: string
                         src={thumbnail || placeholder}
                         alt="Video Thumbnail"
                         loading="lazy"
-                        className={`absolute inset-0 w-full h-full bg-white  ${!thumbnail && 'object-contain bg-accent'} transition-transform duration-300 group-hover:scale-105`}
+                        className={`absolute inset-0 w-full h-full bg-white  ${!thumbnail && 'object-contain p-5 bg-accent'} transition-transform duration-300 group-hover:scale-105`}
                     />
 
                     <div className="absolute top-3 right-3 rounded-full p-2 animate-pulse z-2 ">

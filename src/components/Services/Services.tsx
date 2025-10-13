@@ -53,7 +53,7 @@ const Services = ({ data }: { data?: IService[] }) => {
               className="group bg-card rounded-xl p-4 lg:p-8 shadow-card hover:shadow-elegant transition-all duration-300 hover:-translate-y-2 border border-border"
             >
               <div className="text-accent mb-6 ">
-                <img src={service.icon} alt={service.title}  className='size-12'/>
+                <img src={service.icon} alt={service.title} className='size-12' />
               </div>
 
               <h3 className=" text-2xl font-bold text-card-foreground mb-4">
@@ -85,7 +85,9 @@ const Services = ({ data }: { data?: IService[] }) => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
 
-            <ReservationCalendar title={cta.btnConsult} />
+            <div className="max-sm:w-fit max-sm:mx-auto">
+              <ReservationCalendar title={cta.btnConsult} />
+            </div>
 
             <a href="tel:048877222">
 
