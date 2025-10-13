@@ -24,7 +24,7 @@ export default function FloatingButtons({
   const phoneUrl = `tel:${phone}`;
 
   return (
-    <div className={`fixed z-50 flex flex-col gap-3 ${positions[position]}`}>
+    <div className={`fixed z-10 flex flex-col gap-3 ${positions[position]}`}>
       {/* Phone Button */}
       <motion.a
         href={phoneUrl}
