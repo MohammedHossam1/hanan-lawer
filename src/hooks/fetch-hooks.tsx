@@ -34,6 +34,29 @@ export const useGetSingleBlog = (id: number, lang: string) => {
   return query
 };
 
+// 
+
+type WorkingDays = {
+  id: number;
+  day: string;
+  day_label: string;
+  day_of_week: number;
+  working_day_hours: {
+    id: number;
+    start_time: string;
+    end_time: string;
+  }[];
+};
+export const useGetWorkingDays = (lang: string) => {
+  //hanlde react query fetch
+  const query = useQuery({
+    queryKey: ["working-days", lang],
+    queryFn: () => fetcher<WorkingDays[]>({ url: `/working-days`, lang }),
+    staleTime: 1000 * 60 * 60,
+  })
+  return query
+};
+
 
 
 

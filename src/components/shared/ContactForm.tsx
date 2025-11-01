@@ -22,17 +22,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useGetAppointmentsTypes, usePostAppointment } from "@/hooks/fetch-hooks";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useGetAppointmentsTypes, useGetWorkingDays, usePostAppointment } from "@/hooks/fetch-hooks";
 import { toast } from "sonner";
 import { CalendarDialog } from "./CalendarDialog";
+import { isSameDay, getDay } from "date-fns";
+import { useMemo } from "react";
 
 const ContactForm = ({isBooking}: {isBooking?: boolean}) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const { data: appointmentTypes } = useGetAppointmentsTypes(lang);
+  const { data: workingDays } = useGetWorkingDays(lang);
+  console.log(workingDays, "workingDays"); 
   const mutation = usePostAppointment();
 
-  // ✅ Schema includes date
+  // ✅ Schema includes date, time and meeting mode
   const contactSchema = z.object({
     name: z.string().min(2, { message: t("contactForm.nameValidation") }),
     phone: z
@@ -41,10 +46,13 @@ const ContactForm = ({isBooking}: {isBooking?: boolean}) => {
     city: z.string().min(2, { message: t("contactForm.required") }),
     appointment_type_id: z.string().nonempty({ message: t("contactForm.required") }),
     date: z.date({ required_error: t("contactForm.required") }),
+    time: z.string().nonempty({ message: t("contactForm.required") }),
+    book_type: z.enum(["zoom", "office"], { required_error: t("contactForm.required") }),
   });
   type ContactFormValues = z.infer<typeof contactSchema>;
 
   const [isLoading, setIsLoading] = useState(false);
+  const [timeSelectOpen, setTimeSelectOpen] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
   const form = useForm<ContactFormValues>({
@@ -55,13 +63,66 @@ const ContactForm = ({isBooking}: {isBooking?: boolean}) => {
       city: "",
       appointment_type_id: "",
       date: undefined,
+      time: "",
+      book_type: "zoom",
     },
   });
 
+  // ✅ Watch selected date for time slot calculation
+  const selectedDate = form.watch("date");
+
+  // ✅ Helper: Generate time slots from working hours
+  const generateTimeSlots = (startTime: string, endTime: string): string[] => {
+    const slots: string[] = [];
+    const [startH, startM] = startTime.split(":").map(Number);
+    const [endH, endM] = endTime.split(":").map(Number);
+    
+    let currentMinutes = startH * 60 + startM;
+    const endMinutes = endH * 60 + endM;
+    
+    while (currentMinutes < endMinutes) {
+      const hours = Math.floor(currentMinutes / 60);
+      const minutes = currentMinutes % 60;
+      slots.push(`${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`);
+      currentMinutes += 30; // 30-minute intervals
+    }
+    
+    return slots;
+  };
+
+  // ✅ Get available time slots for selected date
+  const availableTimeSlots = useMemo(() => {
+    console.log(selectedDate, "selectedDate");  
+    if (!selectedDate || !workingDays?.data) return [];
+
+    const dayOfWeek = getDay(selectedDate); // 0 = Sunday, 1 = Monday, etc.
+    const workingDay = workingDays.data.find((wd) => wd.day_of_week === dayOfWeek);
+    console.log(workingDay, "workingDayssssssssssssssss");
+    if (!workingDay || !workingDay.working_day_hours?.length) return [];
+console.log(workingDay, "s");
+    // Collect all time slots from all working hour ranges
+    const allSlots: string[] = [];
+    workingDay.working_day_hours.forEach((hours) => {
+      const slots = generateTimeSlots(hours.start_time, hours.end_time);
+      allSlots.push(...slots);
+    });
+
+    // Remove duplicates and sort
+    return Array.from(new Set(allSlots)).sort();
+  }, [selectedDate, workingDays?.data]);
+
+  // ✅ Check if date is a working day
+  const isDateDisabled = useMemo(() => {
+    return (date: Date): boolean => {
+      if (!workingDays?.data) return true; // If no working days data, disable all
+      const dayOfWeek = getDay(date);
+      const workingDay = workingDays.data.find((wd) => wd.day_of_week === dayOfWeek);
+      return !workingDay || !workingDay.working_day_hours?.length;
+    };
+  }, [workingDays?.data]);
+
   // ✅ submit handler
   function onSubmit(values: ContactFormValues) {
-   
-
     setIsLoading(true);
     mutation.mutate(values, {
       onSuccess: () => {
@@ -80,6 +141,27 @@ const ContactForm = ({isBooking}: {isBooking?: boolean}) => {
         className={`space-y-2 text-start w-full ${isBooking ? "" : "lg:w-3/4"} mx-auto`}
         dir="rtl"
       >
+        {/* Meeting mode (Zoom / Office) */}
+        <FormField
+          control={form.control}
+          name="book_type"
+          render={({ field }) => (
+            <FormItem>
+              <Tabs value={field.value} onValueChange={field.onChange} dir="rtl">
+                <TabsList className="w-full">
+                  <TabsTrigger className="w-1/2" value="zoom">
+                    {t("reservationCalendar.mode.zoom")}
+                  </TabsTrigger>
+                  <TabsTrigger className="w-1/2" value="office">
+                    {t("reservationCalendar.mode.office")}
+                  </TabsTrigger>
+                </TabsList>
+              </Tabs>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         {/* Name Field */}
         <FormField
           control={form.control}
@@ -170,12 +252,92 @@ const ContactForm = ({isBooking}: {isBooking?: boolean}) => {
           render={({ field }) => (
             <FormItem className="text-center">
               <CalendarDialog
+                isDateDisabled={isDateDisabled}
                 selectedDate={field.value}
-                onDateSelect={(date) => field.onChange(date)}
+                onDateSelect={(date) => {
+                  field.onChange(date);
+                  // Reset time when date changes
+                  form.setValue("time", "");
+                  // Close time select if open
+                  setTimeSelectOpen(false);
+                }}
               />
               <FormMessage />
             </FormItem>
           )}
+        />
+
+        {/* Time selector */}
+        <FormField
+          control={form.control}
+          name="time"
+          render={({ field }) => {
+            const now = new Date();
+            const isToday = selectedDate ? isSameDay(selectedDate, now) : false;
+            
+            const handleTimeSelectOpenChange = (open: boolean) => {
+              if (open && !selectedDate) {
+                toast.error(t("reservationCalendar.selectDateFirst"));
+                form.setError("date", {
+                  type: "manual",
+                  message: t("contactForm.required"),
+                });
+                setTimeSelectOpen(false);
+                return;
+              }
+              if (open && availableTimeSlots.length === 0) {
+                toast.error(t("reservationCalendar.noAvailableTimes"));
+                setTimeSelectOpen(false);
+                return;
+              }
+              setTimeSelectOpen(open);
+            };
+            
+            return (
+              <FormItem>
+                <Select
+                  dir="rtl"
+                  open={timeSelectOpen}
+                  onOpenChange={handleTimeSelectOpenChange}
+                  onValueChange={(val) => field.onChange(val)}
+                  value={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger className="w-full border rounded-lg p-2 lg:p-3 h-12">
+                      <SelectValue placeholder={
+                        !selectedDate 
+                          ? t("reservationCalendar.selectTime")
+                          : availableTimeSlots.length === 0
+                          ? t("reservationCalendar.noAvailableTimes")
+                          : t("reservationCalendar.selectTime")
+                      } />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {availableTimeSlots.length > 0 ? (
+                      availableTimeSlots.map((time) => {
+                        const [hh, mm] = time.split(":").map(Number);
+                        const timeMinutes = hh * 60 + mm;
+                        const nowMinutes = now.getHours() * 60 + now.getMinutes();
+                        const blockedByPast = isToday && timeMinutes <= nowMinutes;
+                        const disabled = blockedByPast;
+                        return (
+                          <SelectItem key={time} value={time} disabled={disabled}>
+                            {time}
+                          </SelectItem>
+                        );
+                      })
+                    ) : (
+                      <SelectItem value="no-times" disabled>
+                        {t("reservationCalendar.noAvailableTimes")}
+                      </SelectItem>
+                    )}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
         />
 
         <Button type="submit" isLoading={isLoading} className="w-full">
