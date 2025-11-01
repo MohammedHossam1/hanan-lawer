@@ -10,15 +10,19 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { format } from "date-fns";
+import { format, startOfToday } from "date-fns";
 import { useTranslation } from "react-i18next";
 
 export function CalendarDialog({
     selectedDate,
     onDateSelect,
+    disabledDates = [],
+    isDateDisabled,
 }: {
     selectedDate?: Date;
     onDateSelect: (date: Date) => void;
+    disabledDates?: string[]; // ISO strings (YYYY-MM-DD) to be disabled
+    isDateDisabled?: (date: Date) => boolean; // Function to check if date should be disabled
 }) {
     const [open, setOpen] = useState(false);
     const { t } = useTranslation();
@@ -28,6 +32,20 @@ export function CalendarDialog({
             setOpen(false); // ✅ close the dialog automatically
         }
     };
+
+    // Build disabled rules: past days, provided disabledDates, and custom function
+    const disabledRules = [
+        { before: startOfToday() },
+        ...disabledDates
+            .map((iso) => {
+                const [y, m, d] = iso.split("-").map(Number);
+                if (!y || !m || !d) return null;
+                return new Date(y, (m - 1), d);
+            })
+            .filter(Boolean) as Date[],
+        // Custom function to check if date should be disabled
+        ...(isDateDisabled ? [(date: Date) => isDateDisabled(date)] : []),
+    ];
 
     return (
         <Dialog open={open} onOpenChange={setOpen} modal={false}>
@@ -43,6 +61,7 @@ export function CalendarDialog({
                 </DialogHeader>
                 <div className="p-4 mx-auto">
                     <Calendar
+                        disabled={disabledRules}
                         mode="single"
                         selected={selectedDate}
                         onSelect={handleSelect} // ✅ calls handleSelect

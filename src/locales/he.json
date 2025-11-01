@@ -156,13 +156,19 @@
         "nameValidation": "השם חייב להכיל לפחות 2 אותיות",
         "emailValidation": "האימייל לא תקין",
         "phoneValidation": "מספר הטלפון לא תקין",
-        "cityValidation": "העיר לא תקינה",
-        "optionValidation": "סוג הבקשה לא תקין"
+        "pickDate": "בחר תאריך"
     },
     "reservationCalendar": {
         "button": "קבע פגישת ייעוץ עכשיו",
         "title": "בחר את מועד הפגישה שלך",
-        "confirm": "אישור"
+      "confirm": "אישור",
+      "selectTime": "בחר שעה",
+      "selectDateFirst": "אנא בחר תאריך תחילה",
+      "noAvailableTimes": "אין זמנים זמינים",
+      "mode": {
+        "zoom": "זום",
+        "office": "משרד"
+      }
     },
     "blogs": {
         "sectionHeader": {

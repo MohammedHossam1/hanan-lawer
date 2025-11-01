@@ -157,7 +157,14 @@
     "reservationCalendar": {
         "button": "احجز استشارتك الآن",
         "title": "اختر موعدك",
-        "confirm": "تأكيد"
+      "confirm": "تأكيد",
+      "selectTime": "اختر الساعة",
+      "selectDateFirst": "يرجى اختيار التاريخ أولاً",
+      "noAvailableTimes": "لا توجد أوقات متاحة",
+      "mode": {
+        "zoom": "زوم",
+        "office": "المكتب"
+      }
     },
     "blogs": {
         "sectionHeader": {
