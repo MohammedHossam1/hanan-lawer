@@ -22,19 +22,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGetAppointmentsTypes, useGetWorkingDays, usePostAppointment } from "@/hooks/fetch-hooks";
+import { getDay, isSameDay } from "date-fns";
+import { useMemo } from "react";
 import { toast } from "sonner";
 import { CalendarDialog } from "./CalendarDialog";
-import { isSameDay, getDay } from "date-fns";
-import { useMemo } from "react";
 
 const ContactForm = ({isBooking}: {isBooking?: boolean}) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const { data: appointmentTypes } = useGetAppointmentsTypes(lang);
   const { data: workingDays } = useGetWorkingDays(lang);
-  console.log(workingDays, "workingDays"); 
   const mutation = usePostAppointment();
 
   // ✅ Schema includes date, time and meeting mode
@@ -47,7 +45,7 @@ const ContactForm = ({isBooking}: {isBooking?: boolean}) => {
     appointment_type_id: z.string().nonempty({ message: t("contactForm.required") }),
     date: z.date({ required_error: t("contactForm.required") }),
     time: z.string().nonempty({ message: t("contactForm.required") }),
-    book_type: z.enum(["zoom", "office"], { required_error: t("contactForm.required") }),
+    book_type: z.string().min(1, { message: t("contactForm.required") }),
   });
   type ContactFormValues = z.infer<typeof contactSchema>;
 
@@ -64,7 +62,7 @@ const ContactForm = ({isBooking}: {isBooking?: boolean}) => {
       appointment_type_id: "",
       date: undefined,
       time: "",
-      book_type: "zoom",
+      book_type: "",
     },
   });
 
@@ -92,14 +90,11 @@ const ContactForm = ({isBooking}: {isBooking?: boolean}) => {
 
   // ✅ Get available time slots for selected date
   const availableTimeSlots = useMemo(() => {
-    console.log(selectedDate, "selectedDate");  
     if (!selectedDate || !workingDays?.data) return [];
 
     const dayOfWeek = getDay(selectedDate); // 0 = Sunday, 1 = Monday, etc.
     const workingDay = workingDays.data.find((wd) => wd.day_of_week === dayOfWeek);
-    console.log(workingDay, "workingDayssssssssssssssss");
     if (!workingDay || !workingDay.working_day_hours?.length) return [];
-console.log(workingDay, "s");
     // Collect all time slots from all working hour ranges
     const allSlots: string[] = [];
     workingDay.working_day_hours.forEach((hours) => {
@@ -141,22 +136,33 @@ console.log(workingDay, "s");
         className={`space-y-2 text-start w-full ${isBooking ? "" : "lg:w-3/4"} mx-auto`}
         dir="rtl"
       >
-        {/* Meeting mode (Zoom / Office) */}
+      
+        
+        {/* Meeting mode (Zoom / Office)  */}
         <FormField
           control={form.control}
           name="book_type"
           render={({ field }) => (
             <FormItem>
-              <Tabs value={field.value} onValueChange={field.onChange} dir="rtl">
-                <TabsList className="w-full">
-                  <TabsTrigger className="w-1/2" value="zoom">
+              <Select
+                dir="rtl"
+                onValueChange={(val) => field.onChange(val)}
+                defaultValue={field.value}
+              >
+                <FormControl>
+                  <SelectTrigger className="w-full border rounded-lg p-2 lg:p-3 h-12">
+                    <SelectValue placeholder={t("contactForm.selecBookingType")} />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="zoom">
                     {t("reservationCalendar.mode.zoom")}
-                  </TabsTrigger>
-                  <TabsTrigger className="w-1/2" value="office">
+                  </SelectItem>
+                  <SelectItem value="office">
                     {t("reservationCalendar.mode.office")}
-                  </TabsTrigger>
-                </TabsList>
-              </Tabs>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}
