@@ -18,11 +18,13 @@ export function CalendarDialog({
     onDateSelect,
     disabledDates = [],
     isDateDisabled,
+    isModal = false,
 }: {
     selectedDate?: Date;
     onDateSelect: (date: Date) => void;
     disabledDates?: string[]; // ISO strings (YYYY-MM-DD) to be disabled
     isDateDisabled?: (date: Date) => boolean; // Function to check if date should be disabled
+    isModal?: boolean;
 }) {
     const [open, setOpen] = useState(false);
     const { t } = useTranslation();
@@ -48,7 +50,7 @@ export function CalendarDialog({
     ];
 
     return (
-        <Dialog open={open} onOpenChange={setOpen} modal={false}>
+        <Dialog open={open} onOpenChange={setOpen} modal={isModal}>
             <DialogTrigger asChild dir="rtl">
                 <Button variant="outline" className="w-full border-gray-200 text-black hover:bg-white hover:text-black" >
                     {selectedDate ? format(selectedDate, "PPP") : t("contactForm.pickDate")}

@@ -156,7 +156,8 @@
         "nameValidation": "השם חייב להכיל לפחות 2 אותיות",
         "emailValidation": "האימייל לא תקין",
         "phoneValidation": "מספר הטלפון לא תקין",
-        "pickDate": "בחר תאריך"
+        "pickDate": "בחר תאריך",
+        "selecBookingType": "בחר סוג בקשה"
     },
     "reservationCalendar": {
         "button": "קבע פגישת ייעוץ עכשיו",
