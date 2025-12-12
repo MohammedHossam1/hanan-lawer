@@ -27,8 +27,9 @@ import { getDay, isSameDay } from "date-fns";
 import { useMemo } from "react";
 import { toast } from "sonner";
 import { CalendarDialog } from "./CalendarDialog";
+import { format } from "date-fns";
 
-const ContactForm = ({isBooking}: {isBooking?: boolean}) => {
+const ContactForm = ({ isBooking }: { isBooking?: boolean }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const { data: appointmentTypes } = useGetAppointmentsTypes(lang);
@@ -74,17 +75,17 @@ const ContactForm = ({isBooking}: {isBooking?: boolean}) => {
     const slots: string[] = [];
     const [startH, startM] = startTime.split(":").map(Number);
     const [endH, endM] = endTime.split(":").map(Number);
-    
+
     let currentMinutes = startH * 60 + startM;
     const endMinutes = endH * 60 + endM;
-    
+
     while (currentMinutes < endMinutes) {
       const hours = Math.floor(currentMinutes / 60);
       const minutes = currentMinutes % 60;
       slots.push(`${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`);
       currentMinutes += 30; // 30-minute intervals
     }
-    
+
     return slots;
   };
 
@@ -118,12 +119,21 @@ const ContactForm = ({isBooking}: {isBooking?: boolean}) => {
 
   // ✅ submit handler
   function onSubmit(values: ContactFormValues) {
+    const formattedValues = {
+      ...values,
+      date: format(values.date, "yyyy-MM-dd"),
+    };
     setIsLoading(true);
-    mutation.mutate(values, {
+    mutation.mutate(formattedValues, {
       onSuccess: () => {
         setIsLoading(false);
         toast.success(t("contactForm.success"));
         form.reset();
+      },
+      onError: (error: any) => {
+        setIsLoading(false);
+        console.log("Error:", error);
+        toast.error(error?.message || t("contactForm.error"));
       },
     });
   }
@@ -136,8 +146,8 @@ const ContactForm = ({isBooking}: {isBooking?: boolean}) => {
         className={`space-y-2 text-start w-full ${isBooking ? "" : "lg:w-3/4"} mx-auto`}
         dir="rtl"
       >
-      
-        
+
+
         {/* Meeting mode (Zoom / Office)  */}
         <FormField
           control={form.control}
@@ -280,7 +290,7 @@ const ContactForm = ({isBooking}: {isBooking?: boolean}) => {
           render={({ field }) => {
             const now = new Date();
             const isToday = selectedDate ? isSameDay(selectedDate, now) : false;
-            
+
             const handleTimeSelectOpenChange = (open: boolean) => {
               if (open && !selectedDate) {
                 toast.error(t("reservationCalendar.selectDateFirst"));
@@ -298,7 +308,7 @@ const ContactForm = ({isBooking}: {isBooking?: boolean}) => {
               }
               setTimeSelectOpen(open);
             };
-            
+
             return (
               <FormItem>
                 <Select
@@ -311,11 +321,11 @@ const ContactForm = ({isBooking}: {isBooking?: boolean}) => {
                   <FormControl>
                     <SelectTrigger className="w-full border rounded-lg p-2 lg:p-3 h-12">
                       <SelectValue placeholder={
-                        !selectedDate 
+                        !selectedDate
                           ? t("reservationCalendar.selectTime")
                           : availableTimeSlots.length === 0
-                          ? t("reservationCalendar.noAvailableTimes")
-                          : t("reservationCalendar.selectTime")
+                            ? t("reservationCalendar.noAvailableTimes")
+                            : t("reservationCalendar.selectTime")
                       } />
                     </SelectTrigger>
                   </FormControl>
